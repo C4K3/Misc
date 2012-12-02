@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class ConsoleDeathLog implements Listener {
+	/* Logs death messages to console */
+	
 	
 	public ConsoleDeathLog(Misc plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
