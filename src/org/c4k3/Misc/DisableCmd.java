@@ -52,8 +52,7 @@ public class DisableCmd implements Listener {
     			}
     			rdr.close();
     			Collections.sort(disabledCmds);
-    			Bukkit.getLogger().info("Disabled " + disabledCmds.size() + " commands");
-    			Bukkit.getLogger().info("Test " + disabledCmds.toString());
+    			Bukkit.getLogger().info("Disabling " + disabledCmds.size() + " commands");
 			}
         } catch (Exception e) {
         	Bukkit.getLogger().info("Unexpected error: " + e.getMessage());
