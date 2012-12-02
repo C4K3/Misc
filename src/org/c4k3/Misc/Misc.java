@@ -27,6 +27,6 @@ public class Misc extends JavaPlugin {
 	
 	public static Misc getInstance() {
 		return plugin;
-		}
+	}
 	
 }

@@ -28,9 +28,9 @@ public class AdminChat implements CommandExecutor {
 				sargs = "";
 				
 				for ( int i = 0; i < args.length; i++ ) {
-					sargs = " " + args[i];
+					sargs = sargs + " " + args[i];
 				}
-				
+								
 				/* For all online players, if player isOp sendMessage */
 				for (Player player : Bukkit.getOnlinePlayers()) {
 
