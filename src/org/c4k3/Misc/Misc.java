@@ -17,6 +17,7 @@ public class Misc extends JavaPlugin {
 		getCommand("rules").setExecutor(new Rules());
 		getCommand("follow").setExecutor(new Follow());
 		getCommand("goback").setExecutor(new Follow());
+		getCommand("a").setExecutor(new AdminChat());
 	}
 	
 	@Override
