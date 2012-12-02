@@ -24,6 +24,7 @@ public class Follow implements CommandExecutor {
 		
 		String splayer = sender.getName();
 		
+		/* If sender is not a player (== console) */
 		if ( player == null ) {
 			sender.sendMessage("Only players can use this command");
 			return false;
