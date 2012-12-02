@@ -47,7 +47,7 @@ public class Follow implements CommandExecutor {
 				// It is now presumed that the argument length is 1
 				
 				// tplayer == target player
-				Player tplayer = Bukkit.getPlayerExact(args[0]);
+				Player tplayer = Bukkit.getPlayer(args[0]);
 				
 				if ( tplayer != null ) {
 					
