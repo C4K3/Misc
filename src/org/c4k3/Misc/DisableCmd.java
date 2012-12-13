@@ -38,6 +38,7 @@ public class DisableCmd implements Listener {
 		if (Collections.binarySearch(disabledCmds, cmd) >= 0) {
 			
 			player.sendMessage("Unknown command. Type \"help\" for help.");
+			Bukkit.getLogger().info("Blocked command found in disabledCmds.txt");
 			event.setCancelled(true);
 			event.setMessage("command_has_been_disabled");
 			
@@ -47,6 +48,7 @@ public class DisableCmd implements Listener {
 		if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !event.getPlayer().isOp() ) {
 			
 			player.sendMessage("Unknown command. Type \"help\" for help");
+			Bukkit.getLogger().info("Blocked command found in opOnlyCmds.txt");
 			event.setCancelled(true);
 			event.setMessage("command_has_been_disabled");
 			
