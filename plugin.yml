@@ -20,3 +20,5 @@ commands:
     description: Teleports target player to commandsender (autofills names)
   tpc:
     description: Teleports command sender to target coordinates
+  tpw:
+    description: Teleports command sender to spawn of target world

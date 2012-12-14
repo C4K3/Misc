@@ -3,6 +3,7 @@ package org.c4k3.Misc;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,6 +19,8 @@ public class AdminTeleport implements CommandExecutor {
 	private Player tplayer;
 		
 	private Location loc = new Location(null, 0, 0, 0);
+	
+	private World world;
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
@@ -37,6 +40,7 @@ public class AdminTeleport implements CommandExecutor {
 		/* /tp command
 		 * Teleports sender to target player
 		 * Autofills names
+		 * Syntax: /tp <target player>
 		 */
 		if ( scmd.equals("tp") ) {
 			
@@ -83,9 +87,10 @@ public class AdminTeleport implements CommandExecutor {
 			
 		}
 		
-		/*/tps command
+		/* /tps command
 		 * Teleports target to sender
 		 * Autofills names
+		 * Syntax: /tps <target player>
 		 */
 		if ( scmd.equals("tps") ) {
 			
@@ -135,6 +140,8 @@ public class AdminTeleport implements CommandExecutor {
 		
 		/* /tpc command
 		 * Teleports sender to target coordinates
+		 * If a 4th argument is supplied, it is taken as the target world
+		 * Syntax: /tpc <x> <y> <z> [world]
 		 * */
 		if ( scmd.equals("tpc") ) {
 			
@@ -210,6 +217,58 @@ public class AdminTeleport implements CommandExecutor {
 				return false;
 			}
 			
+			
+		}
+		
+		/* /tpw command
+		 * Teleports command sender to spawn of target world
+		 * Syntax: /tpw <world>
+		 */
+		if ( scmd.equals("tpw")) {
+			
+			if ( sender.isOp() ) {
+				
+				/* If only one argument was supplied.
+				 * Proper syntax is /tpw <world>
+				 * so argument length of 1 is correct
+				 */
+				if ( args.length == 1 ) {
+					
+					try {
+						/* Try to get world from argument
+						 * Will error if world is not found
+						 */
+						world = Bukkit.getWorld(args[0]);
+						
+						loc = world.getSpawnLocation();
+						
+						player.teleport(loc);
+						
+						sender.sendMessage(ChatColor.GOLD + "Teleporting you to spawn point of specified world");
+						
+					} catch (Exception e) {
+						/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
+						 * (== world does not exist)
+						 */
+						sender.sendMessage(ChatColor.RED + "Unable to get world " + args[0] +
+								"\nPlease note some worlds use the world_ prefix (eg world_nether)");
+						Bukkit.getLogger().info("Bukkit.getWorld exception: " + e);
+						return false;
+					}
+					
+				} else {
+					/* Incorrect amount of arguments (suppose to be 1) */
+					sender.sendMessage(ChatColor.RED + "Incorrect amount of arguments.\n"
+							+ "Proper syntax is /tpw <world>");
+					return false;
+				}
+				
+				
+			} else {
+				/* Sender is not OP */
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				return false;
+			}
 			
 		}
 		
