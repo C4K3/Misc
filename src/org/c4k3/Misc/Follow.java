@@ -10,10 +10,18 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Follow implements CommandExecutor {
 	
-	static HashMap<String, Location> backLoc = new HashMap<String, Location>();
+	private static HashMap<String, Location> backLoc = new HashMap<String, Location>();
+	
+	/* Create final variable of potion effect applied to players for nightvision
+	 * Time limit is set to 10 minutes (counted in ticks)
+	 * Amplifier (level) is set to 2
+	 */
+	private static final PotionEffect nightVisionPotionEffect = new PotionEffect(PotionEffectType.NIGHT_VISION, 10 * 60 * 20, 2);
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		
@@ -61,6 +69,7 @@ public class Follow implements CommandExecutor {
 					// tloc == target players location
 					Location tLoc = tplayer.getLocation();
 					player.teleport(tLoc);
+					player.addPotionEffect(nightVisionPotionEffect);
 					sender.sendMessage(ChatColor.GOLD + "Teleporting you to target");
 				
 				} else {
@@ -88,6 +97,7 @@ public class Follow implements CommandExecutor {
 					player.teleport(bLoc);
 					player.setGameMode(GameMode.getByValue(0));
 					player.performCommand("vanish off");
+					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					sender.sendMessage(ChatColor.GOLD + "Teleporting you home");
 					return false;
 					
