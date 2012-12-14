@@ -45,7 +45,7 @@ public class DisableCmd implements Listener {
 		}
 		
 		/* If command is in the opOnlyCmds array AND player is not OP */
-		if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !event.getPlayer().isOp() ) {
+		if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp() ) {
 			
 			player.sendMessage("Unknown command. Type \"help\" for help");
 			Bukkit.getLogger().info("Blocked command found in opOnlyCmds.txt");
@@ -65,7 +65,7 @@ public class DisableCmd implements Listener {
         	File f = new File(Misc.getInstance().getDataFolder(), "disabledCmds.txt");
         	
 			if (!f.exists()) {
-				System.out.println("No commands to disable " + Misc.getInstance().getDataFolder());
+				Bukkit.getLogger().info("No items found in disabledCmds.txt");
 			} else {
 				
 				BufferedReader rdr = new BufferedReader(new FileReader(f));
@@ -81,7 +81,7 @@ public class DisableCmd implements Listener {
     			
     			Collections.sort(disabledCmds);
     			
-    			Bukkit.getLogger().info("Disabling " + disabledCmds.size() + " commands");
+    			Bukkit.getLogger().info("Disabling " + disabledCmds.size() + " commands from disabledCmds.txt");
     			
 			}
 			
@@ -99,7 +99,7 @@ public class DisableCmd implements Listener {
         	File f = new File(Misc.getInstance().getDataFolder(), "opOnlyCmds.txt");
         	
 			if (!f.exists()) {
-				System.out.println("No commands to disable " + Misc.getInstance().getDataFolder());
+				Bukkit.getLogger().info("No items found in opOnlyCmds.txt");
 			} else {
 				
 				BufferedReader rdr = new BufferedReader(new FileReader(f));
@@ -114,6 +114,11 @@ public class DisableCmd implements Listener {
 					}
 				
 				rdr.close();
+				
+				Collections.sort(opOnlyCmds);
+				
+				Bukkit.getLogger().info("Disabling " + opOnlyCmds.size() + " commands from opOnlyCmds.txt");
+				
 			}
 			
         } catch (Exception e) {
