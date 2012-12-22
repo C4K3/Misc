@@ -19,10 +19,17 @@ public class Follow implements CommandExecutor {
 	
 	/* Create final variable of potion effect applied to players for nightvision
 	 * Time limit is set to 10 minutes (counted in ticks)
-	 * Amplifier (level) is set to 2
+	 * Amplifier (level) is set to 1
 	 */
 	private static final PotionEffect nightVisionPotionEffect = new PotionEffect(PotionEffectType.NIGHT_VISION, 10 * 60 * 20, 1);
+	
+	/* Create final variable of potion effect applied to players for invisibility
+	 * Time limit is set to 10 minutes (counted in ticks)
+	 * Amplifier (level) is set to 1
+	 */
 	private static final PotionEffect invisibilityPotionEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 10 * 60 * 20, 1);
+	
+	private String stplayer; //String of target players name
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		
@@ -67,15 +74,26 @@ public class Follow implements CommandExecutor {
 					player.setGameMode(GameMode.getByValue(1));
 					player.performCommand("vanish on");
 					
+					stplayer = tplayer.getName(); // String of target players name
+					
 					// tloc == target players location
-					Location tLoc = tplayer.getLocation();
-					player.teleport(tLoc);
+					player.teleport(tplayer);
 					player.addPotionEffect(nightVisionPotionEffect);
 					player.addPotionEffect(invisibilityPotionEffect);
-					sender.sendMessage(ChatColor.GOLD + "Teleporting you to target");
+					
+					/* Notifying all OPs on the server of this */
+					for (Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
+					  
+					  if ( onlinePlayer.isOp()) {
+					    
+					    onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Following " + stplayer + "]");
+					    
+					    }
+					  
+					  }
 				
 				} else {
-					sender.sendMessage(ChatColor.RED + "Target is not online");
+					sender.sendMessage(ChatColor.RED + "Target player not found");
 				}
 			
 			} else {
@@ -88,6 +106,7 @@ public class Follow implements CommandExecutor {
 		}
 		// End of /follow
 		
+		/* /goback command */
 		if ( cmd.getName().equals("goback") == true ) {
 			
 			if ( player.isOp() == true ) {
@@ -101,7 +120,17 @@ public class Follow implements CommandExecutor {
 					player.performCommand("vanish off");
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
-					sender.sendMessage(ChatColor.GOLD + "Teleporting you home");
+					/* Notifying all OPs on the server of this */
+					for (Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
+					  
+					  if ( onlinePlayer.isOp()) {
+					    
+					    onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": /goback]");
+					    
+					    }
+					  
+					  }
+					
 					return false;
 					
 				} else {
