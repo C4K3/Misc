@@ -22,6 +22,10 @@ public class AdminTeleport implements CommandExecutor {
 	
 	private World world;
 	
+	private String splayer; //String of senders name
+	
+	private String stplayer; //String of targets name (if target is a player)
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		scmd = cmd.getName();
@@ -36,6 +40,8 @@ public class AdminTeleport implements CommandExecutor {
 			Bukkit.getLogger().info("Only players can use this command");
 			return false;
 		}
+		
+		splayer = player.getName();
 		
 		/* /tp command
 		 * Teleports sender to target player
@@ -61,9 +67,24 @@ public class AdminTeleport implements CommandExecutor {
 						
 					} else {
 						/* Target player was found (teleporting sender to target) */
-						sender.sendMessage("Teleporting you to " + tplayer.getName());
+
+						stplayer = tplayer.getName();
+						
+						/* Notifying all OPs on the server of this */
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+							if ( onlinePlayer.isOp()) {
+								
+								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + "] Teleported " + splayer + " to " + stplayer + "]");
+							
+							}
+							
+						}
+						
 						player.teleport(tplayer);
-						return false;
+						
+						return true;
+						
 					}
 					
 				}
@@ -81,7 +102,8 @@ public class AdminTeleport implements CommandExecutor {
 				
 			} else {
 				/* Sender is not OP */
-				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
+						"With the exception of /pvp and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -111,9 +133,24 @@ public class AdminTeleport implements CommandExecutor {
 						
 					} else {
 						/* Target player was found (teleporting target to sender) */
-						sender.sendMessage(ChatColor.GOLD + "Teleporting " + tplayer.getName() + " to you");
+						
+						stplayer = tplayer.getName();
+						
+						/* Notifying all OPs on the server of this */
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+							if ( onlinePlayer.isOp()) {
+								
+								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + stplayer + " to " + splayer + "]");
+							
+							}
+							
+						}
+						
 						tplayer.teleport(player);
-						return false;
+						
+						return true;
+					
 					}
 					
 				}
@@ -132,7 +169,8 @@ public class AdminTeleport implements CommandExecutor {
 				
 			} else {
 				/* Sender is not OP */
-				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
+						"With the exception of /pvp and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -163,9 +201,9 @@ public class AdminTeleport implements CommandExecutor {
 						/* Exception is most likely caused by parseInt not being able to convert string to an integer
 						 * (== sender entered a string, not coordinates in the first 3 arguments)
 						 */
-						sender.sendMessage(ChatColor.RED + "Unable to convert input arguments into location\n" +
+						sender.sendMessage(ChatColor.RED +  "Unable to convert input arguments into location\n" +
 								"Proper syntax is /tpc <x> <y> <z> [world]");
-						Bukkit.getLogger().info("parseInt exception: " + e);
+						Bukkit.getLogger().info("Expected parseInt exception: " + e);
 						return false;
 					}
 					
@@ -176,17 +214,26 @@ public class AdminTeleport implements CommandExecutor {
 							/* Try to get world from fourth argument */							
 							loc.setWorld(Bukkit.getWorld(args[3]));
 							
+							/* Notifying all OPs on the server of this */
+							for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+								if ( onlinePlayer.isOp()) {
+									
+									onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + splayer + " to coordinates]");
+								
+								}
+								
+							}
+							
 							player.teleport(loc);
-							
-							sender.sendMessage(ChatColor.GOLD + "Teleporting you to specified location");
-							
+														
 						} catch (Exception e) {
 							/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
 							 * (== world does not exist)
 							 */
-							sender.sendMessage(ChatColor.RED + "Unable to get world " + args[3] +
-									"\nPlease note some worlds use the world_ prefix (eg world_nether)");
-							Bukkit.getLogger().info("Bukkit.getWorld exception: " + e);
+							sender.sendMessage(ChatColor.RED + "Unable to get world '" + args[3] + "'" +
+									"\nPlease note some worlds use the world_ prefix\n(eg world_nether, world_the_end)");
+							Bukkit.getLogger().info("Expected Bukkit.getWorld exception: " + e);
 							return false;
 							
 						}
@@ -198,9 +245,18 @@ public class AdminTeleport implements CommandExecutor {
 						 */						
 						loc.setWorld(player.getWorld());
 						
-						player.teleport(loc);
+						/* Notifying all OPs on the server of this */
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+							if ( onlinePlayer.isOp()) {
+								
+								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + splayer + " to coordinates]");
+							
+							}
+							
+						}
 						
-						sender.sendMessage(ChatColor.GOLD + "Teleporting you to specified location");
+						player.teleport(loc);
 						
 					}
 										
@@ -213,7 +269,8 @@ public class AdminTeleport implements CommandExecutor {
 				
 			} else {
 				/* Sender is not OP */
-				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
+						"With the exception of /pvp and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -242,17 +299,26 @@ public class AdminTeleport implements CommandExecutor {
 						
 						loc = world.getSpawnLocation();
 						
-						player.teleport(loc);
+						/* Notifying all OPs on the server of this */
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+
+							if ( onlinePlayer.isOp()) {
+								
+								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + splayer + " to spawn in '" + args[0] + "']");
+							
+							}
+							
+						}
 						
-						sender.sendMessage(ChatColor.GOLD + "Teleporting you to spawn point of specified world");
+						player.teleport(loc);
 						
 					} catch (Exception e) {
 						/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
 						 * (== world does not exist)
 						 */
 						sender.sendMessage(ChatColor.RED + "Unable to get world " + args[0] +
-								"\nPlease note some worlds use the world_ prefix (eg world_nether)");
-						Bukkit.getLogger().info("Bukkit.getWorld exception: " + e);
+								"\nPlease note some worlds use the world_ prefix\n(eg world_nether, world_the_end)");
+						Bukkit.getLogger().info("Expect Bukkit.getWorld exception: " + e);
 						return false;
 					}
 					
@@ -266,7 +332,8 @@ public class AdminTeleport implements CommandExecutor {
 				
 			} else {
 				/* Sender is not OP */
-				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command");
+				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
+						"With the exception of /pvp and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
