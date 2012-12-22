@@ -46,7 +46,7 @@ public class CoordsForAll implements CommandExecutor {
 				int x = loc.getBlockX();
 				int y = loc.getBlockY();
 				int z = loc.getBlockZ();
-				sender.sendMessage(ChatColor.RED + "Your coordinates are:\n" +
+				sender.sendMessage(ChatColor.GOLD + "Your coordinates are:\n" +
 						"World = " + loc.getWorld().getName() + "\n" +
 						"X = " + x + "\n" +
 						"Y = " + y + "\n" +
