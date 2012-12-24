@@ -15,6 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Follow implements CommandExecutor {
 	
+	private static HashMap<String, GameMode> backGameMode = new HashMap<String, GameMode>();
+	
 	private static HashMap<String, Location> backLoc = new HashMap<String, Location>();
 	
 	/* Create final variable of potion effect applied to players for nightvision
@@ -69,6 +71,7 @@ public class Follow implements CommandExecutor {
 					
 					// sLoc == senders location
 					Location sLoc = player.getLocation();
+					backGameMode.put(splayer, player.getGameMode());
 					backLoc.put(splayer, sLoc);
 					
 					player.setGameMode(GameMode.getByValue(1));
@@ -116,7 +119,8 @@ public class Follow implements CommandExecutor {
 					
 					backLoc.remove(splayer);
 					player.teleport(bLoc);
-					player.setGameMode(GameMode.getByValue(0));
+					player.setGameMode(backGameMode.get(splayer));
+					backGameMode.remove(splayer);
 					player.performCommand("vanish off");
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
