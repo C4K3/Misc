@@ -81,6 +81,8 @@ public class Follow implements CommandExecutor {
 					
 					// tloc == target players location
 					player.teleport(tplayer);
+					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+					player.removePotionEffect(PotionEffectType.INVISIBILITY);
 					player.addPotionEffect(nightVisionPotionEffect);
 					player.addPotionEffect(invisibilityPotionEffect);
 					
