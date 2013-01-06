@@ -75,7 +75,7 @@ public class AdminTeleport implements CommandExecutor {
 
 							if ( onlinePlayer.isOp()) {
 								
-								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + "] Teleported " + splayer + " to " + stplayer + "]");
+								onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + splayer + " to " + stplayer + "]");
 							
 							}
 							
