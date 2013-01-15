@@ -25,7 +25,7 @@ public class DisableCmd implements Listener {
 	
 	private Player player;
 	
-	@EventHandler(priority=EventPriority.MONITOR)
+	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=false)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		String[] split = event.getMessage().split(" ");
 		if (split.length < 1) return;
