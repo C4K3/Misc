@@ -4,14 +4,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Misc extends JavaPlugin {
 	
-	private static Misc plugin;
-	
+	public static JavaPlugin instance;
+		
 	@Override
 	public void onEnable(){
-		plugin = this;
+		instance = this;
 		new ConsoleDeathLog(this);
 		new LogCmd(this);
 		getServer().getPluginManager().registerEvents(new DisableCmd(), this);
+		getServer().getPluginManager().registerEvents(new FollowLogoutListener(), this);
 		DisableCmd.loadDisabledCmds();
 		getCommand("coords").setExecutor(new CoordsForAll());
 		getCommand("f").setExecutor(new Follow());
@@ -28,8 +29,6 @@ public class Misc extends JavaPlugin {
 		//onDisable
 	}
 	
-	public static Misc getInstance() {
-		return plugin;
-	}
+
 	
 }

@@ -1,5 +1,6 @@
 package org.c4k3.Misc;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -15,11 +16,18 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Follow implements CommandExecutor {
 	
+	/* HashMap of senders gamemode when they used /f */
 	private static HashMap<String, GameMode> backGameMode = new HashMap<String, GameMode>();
 	
+	/* HashMap of senders location when they used /f */
 	private static HashMap<String, Location> backLoc = new HashMap<String, Location>();
 	
-	/* Create final variable of potion effect applied to players for nightvision
+	/* HashMap of all the players an admin is following
+	 * Entries are reset on admin logouts, therefore
+	 * DO NOT USE THIS HASHMAP FOR ANYTHING OTHER THAN /ncp exempt */
+	private static HashMap<String, ArrayDeque<String>> followedPlayersMap = new HashMap<String, ArrayDeque<String>>();
+	
+	/* Create final variable of potion effect applied wto players for nightvision
 	 * Time limit is set to 10 minutes (counted in ticks)
 	 * Amplifier (level) is set to 1
 	 */
@@ -30,9 +38,7 @@ public class Follow implements CommandExecutor {
 	 * Amplifier (level) is set to 1
 	 */
 	private static final PotionEffect invisibilityPotionEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 10 * 60 * 20, 1);
-	
-	private String stplayer; //String of target players name
-	
+		
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		
 		Player player = null;
@@ -69,15 +75,39 @@ public class Follow implements CommandExecutor {
 				
 				if ( tplayer != null ) {
 					
+					String stplayer = tplayer.getName(); // String of target players name
+					
 					// sLoc == senders location
 					Location sLoc = player.getLocation();
-					backGameMode.put(splayer, player.getGameMode());
-					backLoc.put(splayer, sLoc);
+					
+					/* If there is no saved location for the sender
+					 * (if the sender is not following anyone)
+					 * then save senders information
+					 */
+					if ( !backLoc.containsKey(splayer)) {
+						backGameMode.put(splayer, player.getGameMode());
+						backLoc.put(splayer, sLoc);
+						
+					}
+					
+					/* Retrieving ArrayDeque for this admin from the HashMap */
+					ArrayDeque<String> followedPlayersArray = followedPlayersMap.get(splayer);
+					
+					/* If the data retrieved from the HashMap is null, create a new empty ArrayDeque */
+					if ( followedPlayersArray == null ) followedPlayersArray = new ArrayDeque<String>();
+					
+					/* If the target player is not already in the followedPlayers array
+					 * Adds the target player to the array, and then puts the array into followedPlayersMap
+					 * and exempts the target player from NoCheatPlus
+					 */
+					if ( !followedPlayersArray.contains(stplayer)) {
+						followedPlayersArray.add(stplayer);
+						player.performCommand("ncp exempt " + stplayer);
+						followedPlayersMap.put(splayer, followedPlayersArray);
+					}
 					
 					player.setGameMode(GameMode.getByValue(1));
 					player.performCommand("vanish on");
-					
-					stplayer = tplayer.getName(); // String of target players name
 					
 					// tloc == target players location
 					player.teleport(tplayer);
@@ -85,7 +115,7 @@ public class Follow implements CommandExecutor {
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
 					player.addPotionEffect(nightVisionPotionEffect);
 					player.addPotionEffect(invisibilityPotionEffect);
-					
+										
 					/* Notifying all OPs on the server of this */
 					for (Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
 					  
@@ -109,7 +139,7 @@ public class Follow implements CommandExecutor {
 			return false;
 			
 		}
-		// End of /follow
+		/* End of /follow */
 		
 		/* /goback command */
 		if ( cmd.getName().equals("b") == true ) {
@@ -119,6 +149,7 @@ public class Follow implements CommandExecutor {
 				Location bLoc = backLoc.get(splayer);
 				if ( bLoc != null ) {
 					
+					/* Undoing effects of /f (as many as possible) */
 					backLoc.remove(splayer);
 					player.teleport(bLoc);
 					player.setGameMode(backGameMode.get(splayer));
@@ -126,6 +157,9 @@ public class Follow implements CommandExecutor {
 					player.performCommand("vanish off");
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 					player.removePotionEffect(PotionEffectType.INVISIBILITY);
+					
+					unexemptPlayers(player);
+					
 					/* Notifying all OPs on the server of this */
 					for (Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
 					  
@@ -154,6 +188,34 @@ public class Follow implements CommandExecutor {
 		}
 		
 		return false;
+	}
+	
+	/* This class unexempts all the players splayer has followed
+	 * from /ncp exempt, and then removes splayers array from
+	 * the followedPlayersMap hashmap
+	 * 
+	 * This method should be run on the /b command and on OP logouts
+	 */
+	public static void unexemptPlayers(Player player) {
+		
+		String splayer = player.getName();
+		
+		/* Retrieving array from followedPlayersMap
+		 * Then unexmpting each player in the array from /ncp exempt
+		 * Then removing array from followedPlayersMap
+		 */
+		ArrayDeque<String> followedPlayersArray = followedPlayersMap.get(splayer);
+		
+		if ( followedPlayersArray == null ) followedPlayersArray = new ArrayDeque<String>();
+		
+		for ( String followedPlayer : followedPlayersArray ) {
+
+			player.performCommand("ncp unexempt " + followedPlayer);
+			
+		}
+				
+		followedPlayersMap.remove(splayer);
+		
 	}
 
 }

@@ -62,7 +62,7 @@ public class DisableCmd implements Listener {
 		try {
 			
         	disabledCmds = new ArrayList<String>();
-        	File f = new File(Misc.getInstance().getDataFolder(), "disabledCmds.txt");
+        	File f = new File(Misc.instance.getDataFolder(), "disabledCmds.txt");
         	
 			if (!f.exists()) {
 				Bukkit.getLogger().info("No items found in disabledCmds.txt");
@@ -96,7 +96,7 @@ public class DisableCmd implements Listener {
 		try {
 			
         	opOnlyCmds = new ArrayList<String>();
-        	File f = new File(Misc.getInstance().getDataFolder(), "opOnlyCmds.txt");
+        	File f = new File(Misc.instance.getDataFolder(), "opOnlyCmds.txt");
         	
 			if (!f.exists()) {
 				Bukkit.getLogger().info("No items found in opOnlyCmds.txt");
