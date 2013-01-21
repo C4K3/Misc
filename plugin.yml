@@ -30,3 +30,6 @@ commands:
   x:
     description: Runs /lb destroyed block 54 since 1d player args[0] coords
     Usage: Error. Please report at http://simpvp.net/forum
+  shutdown:
+    description: Runs /stop after 30 seconds, announces shutdown to all players
+    Usage: Error. Please report at http://simpvp.net/forum
