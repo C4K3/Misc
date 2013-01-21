@@ -14,8 +14,8 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new DisableCmd(), this);
 		DisableCmd.loadDisabledCmds();
 		getCommand("coords").setExecutor(new CoordsForAll());
-		getCommand("follow").setExecutor(new Follow());
-		getCommand("goback").setExecutor(new Follow());
+		getCommand("f").setExecutor(new Follow());
+		getCommand("b").setExecutor(new Follow());
 		getCommand("a").setExecutor(new AdminChat());
 		getCommand("tp").setExecutor(new AdminTeleport());
 		getCommand("tps").setExecutor(new AdminTeleport());

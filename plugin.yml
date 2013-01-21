@@ -6,9 +6,9 @@ description: Various miscellaneous features
 commands:
   coords:
     description: Prints basic information about user coords to sender
-  follow:
+  f:
     description: Sets creative, activates vanish and teleports OPs to target player
-  goback:
+  b:
     description: Lets OPs go back to wherever they came from after using follow
   a:
     description: Sends a message to all other OPs on the server (private chat channel)

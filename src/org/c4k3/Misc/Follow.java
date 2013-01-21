@@ -48,7 +48,7 @@ public class Follow implements CommandExecutor {
 			return false;
 		}
 		
-		if ( cmd.getName().equals("follow") == true ) {
+		if ( cmd.getName().equals("f") == true ) {
 			
 			if ( sender.isOp() == true ) {
 			
@@ -112,7 +112,7 @@ public class Follow implements CommandExecutor {
 		// End of /follow
 		
 		/* /goback command */
-		if ( cmd.getName().equals("goback") == true ) {
+		if ( cmd.getName().equals("b") == true ) {
 			
 			if ( player.isOp() == true ) {
 				
@@ -131,7 +131,7 @@ public class Follow implements CommandExecutor {
 					  
 					  if ( onlinePlayer.isOp()) {
 					    
-					    onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": /goback]");
+					    onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": /b]");
 					    
 					    }
 					  
