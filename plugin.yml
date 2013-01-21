@@ -1,8 +1,9 @@
 name: Misc
 main: org.c4k3.Misc.Misc
-version: 1.1 #1.4.6B1
+version: 1.1 #1.4.7B1
 author: C4K3.org
 description: Various miscellaneous features
+softdepend: [LogBlock]
 commands:
   coords:
     description: Prints basic information about user coords to sender
@@ -20,3 +21,12 @@ commands:
     description: Teleports command sender to target coordinates
   tpw:
     description: Teleports command sender to spawn of target world
+  dw:
+    description: Runs /lb destroyed block diamond_ore since 1d sum players world world
+    Usage: Error. Please report at http://simpvp.net/forum
+  dp:
+    description: Runs /lb destroyed block diamond_ore since 1d sum players world pvp
+    Usage: Error. Please report at http://simpvp.net/forum
+  x:
+    description: Runs /lb destroyed block 54 since 1d player args[0] coords
+    Usage: Error. Please report at http://simpvp.net/forum

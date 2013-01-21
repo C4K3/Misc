@@ -22,6 +22,9 @@ public class Misc extends JavaPlugin {
 		getCommand("tps").setExecutor(new AdminTeleport());
 		getCommand("tpc").setExecutor(new AdminTeleport());
 		getCommand("tpw").setExecutor(new AdminTeleport());
+		getCommand("dw").setExecutor(new AdminShortcuts());
+		getCommand("dp").setExecutor(new AdminShortcuts());
+		getCommand("x").setExecutor(new AdminShortcuts());
 	}
 	
 	@Override
