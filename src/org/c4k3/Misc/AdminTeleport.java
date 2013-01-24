@@ -206,7 +206,7 @@ public class AdminTeleport implements CommandExecutor {
 						Bukkit.getLogger().info("Expected parseInt exception: " + e);
 						return false;
 					}
-					
+
 					if ( argslength == 4 ) {
 						/* The sender is trying to teleport to a specific world */
 						
