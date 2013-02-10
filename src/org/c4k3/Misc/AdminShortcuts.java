@@ -41,7 +41,7 @@ public class AdminShortcuts implements CommandExecutor {
 			/* Checking that the correct amount of arguments were entered */
 			if ( args.length == 1 ) {
 				
-				player.performCommand("lb lookup destroyed block 56 since 2d player " + args[0] + " coords");
+				player.performCommand("lb lookup destroyed block 56 player " + args[0] + " coords");
 				
 			} else {
 				/* Incorrect amount of arguments */

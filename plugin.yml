@@ -33,3 +33,6 @@ commands:
   shutdown:
     description: Runs /stop after 30 seconds, announces shutdown to all players
     Usage: Error. Please report at http://simpvp.net/forum
+  forcefield:
+    description: Temporarily devanishes sender, to check for forcefield hackers
+    Usage: Error. Please report at http://simpvp.net/forum

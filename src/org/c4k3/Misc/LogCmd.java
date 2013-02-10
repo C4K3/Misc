@@ -8,16 +8,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class LogCmd implements Listener {
-	
-	private static Misc plugin;
-	
+		
 	/* Sets this class to register events */
 	public LogCmd(Misc plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 	
 	/* On PlayerCommandPreprocessEvents (player commands) log command, sender and coordinates it was issued at */
-	@EventHandler(priority=EventPriority.LOWEST, ignoreCancelled=false)
+	@EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=false)
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
     	Player target = event.getPlayer();
     	Location loc = target.getLocation();
@@ -25,7 +23,7 @@ public class LogCmd implements Listener {
     	int y = loc.getBlockY();
     	int z = loc.getBlockZ();
     	String world = loc.getWorld().getName();
-    	plugin.getLogger().info(event.isCancelled() + " At " + world + " " + x + " " + y + " " + + z + " " + event.getPlayer().getName() + " entered " + event.getMessage());
+    	Misc.instance.getLogger().info("At " + world + " " + x + " " + y + " " + + z + " " + event.getPlayer().getName() + " entered " + event.getMessage());
     }
 	
 	

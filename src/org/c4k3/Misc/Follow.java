@@ -32,12 +32,6 @@ public class Follow implements CommandExecutor {
 	 * Amplifier (level) is set to 1
 	 */
 	private static final PotionEffect nightVisionPotionEffect = new PotionEffect(PotionEffectType.NIGHT_VISION, 10 * 60 * 20, 1);
-	
-	/* Create final variable of potion effect applied to players for invisibility
-	 * Time limit is set to 10 minutes (counted in ticks)
-	 * Amplifier (level) is set to 1
-	 */
-	private static final PotionEffect invisibilityPotionEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 10 * 60 * 20, 1);
 		
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 		
@@ -112,9 +106,7 @@ public class Follow implements CommandExecutor {
 					// tloc == target players location
 					player.teleport(tplayer);
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-					player.removePotionEffect(PotionEffectType.INVISIBILITY);
 					player.addPotionEffect(nightVisionPotionEffect);
-					player.addPotionEffect(invisibilityPotionEffect);
 										
 					/* Notifying all OPs on the server of this */
 					for (Player onlinePlayer : Bukkit.getOnlinePlayers() ) {
@@ -156,7 +148,6 @@ public class Follow implements CommandExecutor {
 					backGameMode.remove(splayer);
 					player.performCommand("vanish off");
 					player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-					player.removePotionEffect(PotionEffectType.INVISIBILITY);
 					
 					unexemptPlayers(player);
 					
