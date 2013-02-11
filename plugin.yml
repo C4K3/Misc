@@ -36,3 +36,6 @@ commands:
   forcefield:
     description: Temporarily devanishes sender, to check for forcefield hackers
     Usage: Error. Please report at http://simpvp.net/forum
+  setspawn:
+    description: Changes the spawn to the location of the sender
+    Usage: Error. Please report at http://simpvp.net/forum
