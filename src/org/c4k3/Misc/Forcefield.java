@@ -2,6 +2,7 @@ package org.c4k3.Misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,12 +43,14 @@ public class Forcefield implements CommandExecutor {
 				player.removePotionEffect(PotionEffectType.INVISIBILITY);
 				player.addPotionEffect(invisibilityPotionEffect);
 				player.performCommand("vanish off");
+				player.setGameMode(GameMode.SURVIVAL);
 				
 				Bukkit.getScheduler().scheduleSyncDelayedTask(Misc.instance, new Runnable() {
 				    @Override 
 				    public void run() {
 				    	player.performCommand("vanish on");
 				    	player.removePotionEffect(PotionEffectType.INVISIBILITY);
+				    	player.setGameMode(GameMode.CREATIVE);
 				    }
 				}, 5L);
 				
