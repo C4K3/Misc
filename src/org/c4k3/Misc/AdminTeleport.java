@@ -81,6 +81,7 @@ public class AdminTeleport implements CommandExecutor {
 							
 						}
 						
+						if ( player.isInsideVehicle() ) player.leaveVehicle();
 						player.teleport(tplayer);
 						
 						return true;
@@ -147,6 +148,7 @@ public class AdminTeleport implements CommandExecutor {
 							
 						}
 						
+						if ( tplayer.isInsideVehicle() ) tplayer.leaveVehicle();
 						tplayer.teleport(player);
 						
 						return true;
@@ -256,6 +258,7 @@ public class AdminTeleport implements CommandExecutor {
 							
 						}
 						
+						if ( player.isInsideVehicle() ) player.leaveVehicle();
 						player.teleport(loc);
 						
 					}
@@ -310,6 +313,7 @@ public class AdminTeleport implements CommandExecutor {
 							
 						}
 						
+						if ( player.isInsideVehicle() ) player.leaveVehicle();
 						player.teleport(loc);
 						
 					} catch (Exception e) {
