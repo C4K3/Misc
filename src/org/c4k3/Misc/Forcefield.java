@@ -19,7 +19,7 @@ public class Forcefield implements CommandExecutor {
 	 * Time limit is set to 10 minutes (counted in ticks)
 	 * Amplifier (level) is set to 1
 	 */
-	private static final PotionEffect invisibilityPotionEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 10 * 60 * 20, 1);
+	private static final PotionEffect invisibilityPotionEffect = new PotionEffect(PotionEffectType.INVISIBILITY, 1 * 60 * 20, 1);
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
@@ -49,7 +49,6 @@ public class Forcefield implements CommandExecutor {
 				    @Override 
 				    public void run() {
 				    	player.performCommand("vanish on");
-				    	player.removePotionEffect(PotionEffectType.INVISIBILITY);
 				    	player.setGameMode(GameMode.CREATIVE);
 				    }
 				}, 5L);
