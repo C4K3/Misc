@@ -1,5 +1,6 @@
 package org.c4k3.Misc;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +24,7 @@ public class LogCmd implements Listener {
     	int y = loc.getBlockY();
     	int z = loc.getBlockZ();
     	String world = loc.getWorld().getName();
-    	Misc.instance.getLogger().info("At " + world + " " + x + " " + y + " " + + z + " " + event.getPlayer().getName() + " entered " + event.getMessage());
+    	Bukkit.getLogger().info("At " + world + " " + x + " " + y + " " + + z + " " + event.getPlayer().getName() + " entered " + event.getMessage());
     }
 	
 	
