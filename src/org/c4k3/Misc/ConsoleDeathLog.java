@@ -6,9 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+
+
 public class ConsoleDeathLog implements Listener {
 	/* Logs death messages to console */
-	
 	
 	public ConsoleDeathLog(Misc plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -23,7 +24,8 @@ public class ConsoleDeathLog implements Listener {
 		int z = loc.getBlockZ();
 		String world = loc.getWorld().getName();
 		String deathMsg = event.getDeathMessage();
-		Bukkit.getLogger().info(deathMsg + " at " + world + " " + x + " " + y + " " + z);
+		String splayer = event.getEntity().getName();
+		Bukkit.getLogger().info(deathMsg + " at " + world + " " + x + " " + y + " " + z + " for " + splayer);
 	}
 
 }
