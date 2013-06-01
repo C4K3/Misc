@@ -104,7 +104,7 @@ public class AdminTeleport implements CommandExecutor {
 			} else {
 				/* Sender is not OP */
 				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
-						"With the exception of /pvp and /kill, teleportation is disabled on this server");
+						"With the exception of /world and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -172,7 +172,7 @@ public class AdminTeleport implements CommandExecutor {
 			} else {
 				/* Sender is not OP */
 				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
-						"With the exception of /pvp and /kill, teleportation is disabled on this server");
+						"With the exception of /world and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -273,7 +273,7 @@ public class AdminTeleport implements CommandExecutor {
 			} else {
 				/* Sender is not OP */
 				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
-						"With the exception of /pvp and /kill, teleportation is disabled on this server");
+						"With the exception of /world and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
@@ -337,7 +337,7 @@ public class AdminTeleport implements CommandExecutor {
 			} else {
 				/* Sender is not OP */
 				sender.sendMessage(ChatColor.RED + "You do not have permission to use this command\n" +
-						"With the exception of /pvp and /kill, teleportation is disabled on this server");
+						"With the exception of /world and /kill, teleportation is disabled on this server");
 				return false;
 			}
 			
