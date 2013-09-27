@@ -100,7 +100,7 @@ public class Follow implements CommandExecutor {
 						followedPlayersMap.put(splayer, followedPlayersArray);
 					}
 					
-					player.setGameMode(GameMode.getByValue(1));
+					player.setGameMode(GameMode.CREATIVE);
 					player.performCommand("vanish on");
 					
 					// tloc == target players location
