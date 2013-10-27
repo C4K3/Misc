@@ -1,6 +1,6 @@
 name: Misc
 main: org.c4k3.Misc.Misc
-version: 1.3 #1.6.4D2882
+version: 1.4 #1.6.4D1841
 author: C4K3.org
 description: Various miscellaneous features
 softdepend: [LogBlock]
@@ -35,7 +35,4 @@ commands:
     Usage: Error. Please report at http://simpvp.net/forum
   forcefield:
     description: Temporarily devanishes sender, to check for forcefield hackers
-    Usage: Error. Please report at http://simpvp.net/forum
-  setspawn:
-    description: Changes the spawn to the location of the sender
     Usage: Error. Please report at http://simpvp.net/forum

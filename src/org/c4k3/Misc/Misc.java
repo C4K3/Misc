@@ -27,7 +27,6 @@ public class Misc extends JavaPlugin {
 		getCommand("x").setExecutor(new AdminShortcuts());
 		getCommand("shutdown").setExecutor(new Shutdown());
 		getCommand("forcefield").setExecutor(new Forcefield());
-		getCommand("setspawn").setExecutor(new Setspawn());
 	}
 	
 	@Override
