@@ -35,20 +35,14 @@ public class AdminTeleport implements CommandExecutor {
 			player = (Player) sender;
 		}
 		
-		if ( player == null ) {
-			/* Sender is not a player */
-			Bukkit.getLogger().info("Only players can use this command");
-			return false;
-		}
-		
-		splayer = player.getName();
+		splayer = sender.getName();
 		
 		/* /tp command
 		 * Teleports sender to target player
 		 * Autofills names
 		 * Syntax: /tp <target player>
 		 */
-		if ( scmd.equals("tp") ) {
+		if ( scmd.equals("tp") && player != null ) {
 			
 			if ( sender.isOp() ) {
 				/* Sender is OP */
@@ -115,7 +109,7 @@ public class AdminTeleport implements CommandExecutor {
 		 * Autofills names
 		 * Syntax: /tps <target player>
 		 */
-		if ( scmd.equals("tps") ) {
+		if ( scmd.equals("tps") && player != null ) {
 			
 			if ( sender.isOp() ) {
 				/* Sender is OP */
@@ -189,8 +183,14 @@ public class AdminTeleport implements CommandExecutor {
 				
 				argslength = args.length;
 				
-				if ( argslength == 3 || argslength == 4 ) {
+				if ( argslength == 3 || argslength == 4 || argslength == 5 ) {
 					/* Correct amount of arguments */
+					
+					/* Checking if sender is a player or not. Non-players should always enter the full command (argslength should equal 5) */
+					if ( player == null && argslength != 5 ) {
+						Bukkit.getLogger().info("If you want to use this command as a non-player, you must use the full command: /tpc <x> <y> <z> [world] [player]");
+						return false;
+					}
 					
 					/* Try to convert arguments into doubles for target location */
 					try {
@@ -204,12 +204,35 @@ public class AdminTeleport implements CommandExecutor {
 						 * (== sender entered a string, not coordinates in the first 3 arguments)
 						 */
 						sender.sendMessage(ChatColor.RED +  "Unable to convert input arguments into location\n" +
-								"Proper syntax is /tpc <x> <y> <z> [world]");
+								"Proper syntax is /tpc <x> <y> <z> [world] [player]");
 						Bukkit.getLogger().info("Expected parseInt exception: " + e);
 						return false;
 					}
+					
+					/* If there are 5 args, then the sender is trying to teleport an other person. Trying to get said person*/
+					if ( argslength == 5 ) {
+						
+						tplayer = Bukkit.getPlayer(args[4]);
+						
+						if ( tplayer == null ) {
+							
+							/* Target player is null (player was not found) */
+							sender.sendMessage("Target player not found");
+							return false;
+							
+						}
+						
+						stplayer = tplayer.getName();
+						
+					} else {
+						/* Argslength is less than 5, therefore player is not trying to teleport a different person, meaning we can set tplayer to the sender */
+						tplayer = player;
+						stplayer = splayer;
+					}
+					
+					if ( tplayer.isInsideVehicle() ) tplayer.leaveVehicle();
 
-					if ( argslength == 4 ) {
+					if ( argslength == 4 || argslength == 5 ) {
 						/* The sender is trying to teleport to a specific world */
 						
 						try {
@@ -221,13 +244,13 @@ public class AdminTeleport implements CommandExecutor {
 
 								if ( onlinePlayer.isOp()) {
 									
-									onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + splayer + " to coordinates]");
+									onlinePlayer.sendMessage(ChatColor.GRAY + "" + ChatColor.ITALIC + "[" + splayer + ": Teleported " + stplayer + " to coordinates]");
 								
 								}
 								
 							}
 							
-							player.teleport(loc);
+							tplayer.teleport(loc);
 														
 						} catch (Exception e) {
 							/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
@@ -343,6 +366,8 @@ public class AdminTeleport implements CommandExecutor {
 			
 		}
 		
+		/* None of the commands could be triggered, likely caused by the sender being console and sending a command other than /tpc */
+		if ( !scmd.equals("tpc") ) Bukkit.getLogger().info("You have to be a player to use this command");
 		return false;
 		
 	}
