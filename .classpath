@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/home/timeline/Dropbox/Java/Server/bukkit-1.6.4D1841.jar"/>
+	<classpathentry kind="lib" path="/home/seb/Seafile/Main/Java/Workspace/bukkit-1.7.9B1936.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

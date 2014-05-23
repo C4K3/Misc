@@ -1,6 +1,6 @@
 name: Misc
 main: org.c4k3.Misc.Misc
-version: 1.4 #1.6.4D1841
+version: 1.5 #1.7.9B1936
 author: C4K3.org
 description: Various miscellaneous features
 softdepend: [LogBlock]
@@ -15,7 +15,7 @@ commands:
     description: Sends a message to all other OPs on the server (private chat channel)
   tp:
     description: Teleports command sender to target player (autofills names)
-  tps:
+  tpo:
     description: Teleports target player to commandsender (autofills names)
   tpc:
     description: Teleports command sender to target coordinates
@@ -29,9 +29,6 @@ commands:
     Usage: Error. Please report at http://simpvp.net/forum
   x:
     description: Runs /lb destroyed block 54 since 1d player args[0] coords
-    Usage: Error. Please report at http://simpvp.net/forum
-  shutdown:
-    description: Runs /stop after 30 seconds, announces shutdown to all players
     Usage: Error. Please report at http://simpvp.net/forum
   forcefield:
     description: Temporarily devanishes sender, to check for forcefield hackers

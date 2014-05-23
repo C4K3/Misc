@@ -26,6 +26,10 @@ public class AdminTeleport implements CommandExecutor {
 	
 	private String stplayer; //String of targets name (if target is a player)
 	
+	/** Gets all the teleport commands
+	 * 
+	 * Returns true if somebody was teleported. Else returns false
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		scmd = cmd.getName();
@@ -104,12 +108,12 @@ public class AdminTeleport implements CommandExecutor {
 			
 		}
 		
-		/* /tps command
+		/* /tpo command
 		 * Teleports target to sender
 		 * Autofills names
 		 * Syntax: /tps <target player>
 		 */
-		if ( scmd.equals("tps") && player != null ) {
+		if ( scmd.equals("tpo") && player != null ) {
 			
 			if ( sender.isOp() ) {
 				/* Sender is OP */
@@ -338,6 +342,8 @@ public class AdminTeleport implements CommandExecutor {
 						
 						if ( player.isInsideVehicle() ) player.leaveVehicle();
 						player.teleport(loc);
+						
+						return true;
 						
 					} catch (Exception e) {
 						/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
