@@ -255,7 +255,7 @@ public class AdminTeleport implements CommandExecutor {
 							}
 							
 							tplayer.teleport(loc);
-														
+																					
 						} catch (Exception e) {
 							/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
 							 * (== world does not exist)
@@ -344,7 +344,7 @@ public class AdminTeleport implements CommandExecutor {
 						player.teleport(loc);
 						
 						return true;
-						
+												
 					} catch (Exception e) {
 						/* Exception is most likely caused by Bukkit.getWorld being unable to get the world
 						 * (== world does not exist)

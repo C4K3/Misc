@@ -25,7 +25,7 @@ public class DisableCmd implements Listener {
 	
 	private Player player;
 	
-	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=false)
+	@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=true)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		String[] split = event.getMessage().split(" ");
 		if (split.length < 1) return;
@@ -35,7 +35,7 @@ public class DisableCmd implements Listener {
 		player = event.getPlayer();
 		
 		/* If command is in the disabledCmds array */
-		if (Collections.binarySearch(disabledCmds, cmd) >= 0) {
+		if ( Collections.binarySearch(disabledCmds, cmd) >= 0 ) {
 			
 			player.sendMessage("Unknown command. Type \"/help\" for help.");
 			Bukkit.getLogger().info("Blocked command found in disabledCmds.txt");
@@ -45,7 +45,7 @@ public class DisableCmd implements Listener {
 		}
 		
 		/* If command is in the opOnlyCmds array AND player is not OP */
-		if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp() ) {
+		else if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp() ) {
 			
 			player.sendMessage("Unknown command. Type \"/help\" for help.");
 			Bukkit.getLogger().info("Blocked command found in opOnlyCmds.txt");
@@ -53,6 +53,15 @@ public class DisableCmd implements Listener {
 			event.setMessage("command_has_been_disabled");
 			
 		}
+		
+		/* Block all the bukkit: command abuse */
+		else if ( cmd.startsWith("bukkit:") ) {
+			player.sendMessage("Unknown command. Type \"/help\" for help.");
+			Bukkit.getLogger().info("Blocked bukkit: command");
+			event.setCancelled(true);
+			event.setMessage("command_has_been_disabled");
+		}
+		
 	}
 	
 	public static void loadDisabledCmds() {
