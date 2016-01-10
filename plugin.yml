@@ -1,6 +1,6 @@
 name: Misc
-main: org.c4k3.Misc.Misc
-version: 1.5 #1.7.9B1936
+main: net.simpvp.Misc.Misc
+version: 2
 author: C4K3.org
 description: Various miscellaneous features
 softdepend: [LogBlock]

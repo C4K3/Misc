@@ -1,4 +1,4 @@
-package org.c4k3.Misc;
+package net.simpvp.Misc;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;

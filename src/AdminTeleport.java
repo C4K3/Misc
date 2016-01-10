@@ -1,4 +1,4 @@
-package org.c4k3.Misc;
+package net.simpvp.Misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -163,7 +163,7 @@ public class AdminTeleport implements CommandExecutor {
 				
 				if ( argslength > 1 ) {
 					/* Too many arguments */
-					sender.sendMessage(ChatColor.RED + "You can only specify more than one target");
+					sender.sendMessage(ChatColor.RED + "You cannot specify more than one target");
 					return false;
 				}
 				

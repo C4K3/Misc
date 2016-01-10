@@ -1,4 +1,4 @@
-package org.c4k3.Misc;
+package net.simpvp.Misc;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
