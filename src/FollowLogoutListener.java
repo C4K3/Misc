@@ -15,7 +15,8 @@ public class FollowLogoutListener implements Listener {
 
 		Player player = event.getPlayer();
 
-		if ( player.isOp() ) Follow.unexemptPlayers(player);
+		if (player.isOp())
+			Follow.unexemptPlayers(player);
 
 	}
 
