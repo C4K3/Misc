@@ -30,6 +30,3 @@ commands:
   x:
     description: Runs /lb destroyed block 54 since 1d player args[0] coords
     Usage: Error. Please report at http://simpvp.net/forum
-  forcefield:
-    description: Temporarily devanishes sender, to check for forcefield hackers
-    Usage: Error. Please report at http://simpvp.net/forum
