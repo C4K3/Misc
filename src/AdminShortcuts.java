@@ -7,16 +7,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AdminShortcuts implements CommandExecutor {
-	
+
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
+
 		String scmd = command.getName();
-		
+
 		Player player = null;
 		if (sender instanceof Player) {
 			player = (Player) sender;
 		}
-		
+
 		/* On /dw runs the command
 		 * /lb destroyed block 56 since 1d sum players world "world"
 		 */
@@ -24,7 +24,7 @@ public class AdminShortcuts implements CommandExecutor {
 			player.performCommand("lb lookup destroyed block 56 since 2d sum players world \"world\"");
 			return true;
 		}
-		
+
 		/* On /dp runs the command
 		 * /lb destroyed block 56 since 1d sum players world "pvp"
 		 */
@@ -32,29 +32,30 @@ public class AdminShortcuts implements CommandExecutor {
 			player.performCommand("lb lookup destroyed block 56 since 2d sum players world \"pvp\"");
 			return true;
 		}
-		
+
 		/* On /x runs the command
 		 * /lb destroyed block 56 since 1d player args[0] coords
 		 */
 		if ( scmd.equalsIgnoreCase("x")) {
-			
+
 			/* Checking that the correct amount of arguments were entered */
 			if ( args.length == 1 ) {
-				
+
 				player.performCommand("lb lookup destroyed block 56 player " + args[0] + " coords");
-				
+
 			} else {
 				/* Incorrect amount of arguments */
 				sender.sendMessage(ChatColor.RED + "Incorrect amount of arguments\n" +
 						"Proper syntax is /x <player>");
 				return true;
 			}
-			
+
 		}
-		
-		
+
+
 		return false;
-		
+
 	}
 
 }
+

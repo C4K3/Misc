@@ -140,7 +140,7 @@ public class Follow implements CommandExecutor {
 
 				Location bLoc = backLoc.get(splayer);
 				if ( bLoc != null ) {
-					
+
 					//TODO
 					/* Add +1 to y as a workaround of people getting stuck */
 					//bLoc.setY(bLoc.getY() + 1.0);
@@ -216,3 +216,4 @@ public class Follow implements CommandExecutor {
 	}
 
 }
+

@@ -3,9 +3,9 @@ package net.simpvp.Misc;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Misc extends JavaPlugin {
-	
+
 	public static JavaPlugin instance;
-		
+
 	@Override
 	public void onEnable(){
 		instance = this;
@@ -27,12 +27,13 @@ public class Misc extends JavaPlugin {
 		getCommand("x").setExecutor(new AdminShortcuts());
 		getCommand("forcefield").setExecutor(new Forcefield());
 	}
-	
+
 	@Override
 	public void onDisable(){
 		//onDisable
 	}
-	
 
-	
+
+
 }
+

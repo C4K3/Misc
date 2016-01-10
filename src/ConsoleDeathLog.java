@@ -10,14 +10,14 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class ConsoleDeathLog implements Listener {
 	/* Logs death messages to console */
-	
+
 	public ConsoleDeathLog(Misc plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    }
-	
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
-		
+
 		Location loc = event.getEntity().getLocation();
 		int x = loc.getBlockX();
 		int y = loc.getBlockY();
@@ -29,3 +29,4 @@ public class ConsoleDeathLog implements Listener {
 	}
 
 }
+
