@@ -28,40 +28,28 @@ public class DisableCmd implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST,ignoreCancelled=true)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		String[] split = event.getMessage().split(" ");
-		if (split.length < 1) return;
+		if (split.length < 1)
+			return;
 
 		String cmd = split[0].trim().substring(1).toLowerCase();
 
 		player = event.getPlayer();
 
-		/* If command is in the disabledCmds array */
-		if ( Collections.binarySearch(disabledCmds, cmd) >= 0 ) {
+		if (Collections.binarySearch(disabledCmds, cmd) >= 0 ) {
+			disable_event(event, "Blocked command found in disabledCmds.txt");
 
-			player.sendMessage("Unknown command. Type \"/help\" for help.");
-			Bukkit.getLogger().info("Blocked command found in disabledCmds.txt");
-			event.setCancelled(true);
-			event.setMessage("command_has_been_disabled");
-
+		} else if (Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp()) {
+			disable_event(event, "Blocked command found in opOnlyCmds.txt");
+		} else if (cmd.contains(":")) {
+			disable_event(event, "Blocked command that contained :");
 		}
 
-		/* If command is in the opOnlyCmds array AND player is not OP */
-		else if ( Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp() ) {
+	}
 
-			player.sendMessage("Unknown command. Type \"/help\" for help.");
-			Bukkit.getLogger().info("Blocked command found in opOnlyCmds.txt");
-			event.setCancelled(true);
-			event.setMessage("command_has_been_disabled");
-
-		}
-
-		/* Block all the bukkit: command abuse */
-		else if ( cmd.startsWith("bukkit:") ) {
-			player.sendMessage("Unknown command. Type \"/help\" for help.");
-			Bukkit.getLogger().info("Blocked bukkit: command");
-			event.setCancelled(true);
-			event.setMessage("command_has_been_disabled");
-		}
-
+	private void disable_event(PlayerCommandPreprocessEvent event, String blocked_message) {
+		event.getPlayer().sendMessage("Unknown command. Type \"/help\" for help.");
+		Misc.instance.getLogger().info(blocked_message);
+		event.setCancelled(true);
 	}
 
 	public static void loadDisabledCmds() {
@@ -69,7 +57,6 @@ public class DisableCmd implements Listener {
 		/* Adds disabled cmds to disabledCmds array 
 		 * Reads from plugins/Misc/disabledCmds.txt file */
 		try {
-
 			disabledCmds = new ArrayList<String>();
 			File f = new File(Misc.instance.getDataFolder(), "disabledCmds.txt");
 
@@ -87,23 +74,18 @@ public class DisableCmd implements Listener {
 				}
 
 				rdr.close();
-
 				Collections.sort(disabledCmds);
-
 				Bukkit.getLogger().info("Disabling " + disabledCmds.size() + " commands from disabledCmds.txt");
 
 			}
 
 		} catch (Exception e) {
-
-			Bukkit.getLogger().info("Unexpected error: " + e.getMessage());
+			Misc.instance.getLogger().info("Unexpected error: " + e.getMessage());
 		}
 
 		/* Adding commands that are disabled for everybody but OPs to the opOnlyCmds array
-		 * Reads from plugins/Misc/opOnlyCmds.txt
-		 */
+		 * Reads from plugins/Misc/opOnlyCmds.txt */
 		try {
-
 			opOnlyCmds = new ArrayList<String>();
 			File f = new File(Misc.instance.getDataFolder(), "opOnlyCmds.txt");
 
@@ -115,24 +97,19 @@ public class DisableCmd implements Listener {
 				String line;
 
 				while ((line = rdr.readLine()) != null) {
-
 					line = line.trim();
 					if (line.length() < 1) continue;
 					opOnlyCmds.add(line.trim().toLowerCase());
-
 				}
 
 				rdr.close();
-
 				Collections.sort(opOnlyCmds);
-
-				Bukkit.getLogger().info("Disabling " + opOnlyCmds.size() + " commands from opOnlyCmds.txt");
+				Misc.instance.getLogger().info("Disabling " + opOnlyCmds.size() + " commands from opOnlyCmds.txt");
 
 			}
 
 		} catch (Exception e) {
-
-			Bukkit.getLogger().info("Unexpected error: " + e.getMessage());
+			Misc.instance.getLogger().info("Unexpected error: " + e.getMessage());
 		}
 
 	}
