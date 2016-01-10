@@ -18,31 +18,29 @@ public class AdminShortcuts implements CommandExecutor {
 		}
 
 		/* On /dw runs the command
-		 * /lb destroyed block 56 since 1d sum players world "world"
-		 */
-		if ( scmd.equalsIgnoreCase("dw")) {
-			player.performCommand("lb lookup destroyed block 56 since 2d sum players world \"world\"");
+		 * /lb destroyed block 56 since 1d sum players world "world" */
+		if (scmd.equalsIgnoreCase("dw")) {
+			player.performCommand(
+					"lb lookup destroyed block 56 since 2d sum players world \"world\"");
 			return true;
 		}
 
 		/* On /dp runs the command
-		 * /lb destroyed block 56 since 1d sum players world "pvp"
-		 */
-		if ( scmd.equalsIgnoreCase("dp")) {
-			player.performCommand("lb lookup destroyed block 56 since 2d sum players world \"pvp\"");
+		 * /lb destroyed block 56 since 1d sum players world "pvp" */
+		if (scmd.equalsIgnoreCase("dp")) {
+			player.performCommand(
+					"lb lookup destroyed block 56 since 2d sum players world \"pvp\"");
 			return true;
 		}
 
 		/* On /x runs the command
-		 * /lb destroyed block 56 since 1d player args[0] coords
-		 */
-		if ( scmd.equalsIgnoreCase("x")) {
+		 * /lb destroyed block 56 since 1d player args[0] coords */
+		if (scmd.equalsIgnoreCase("x")) {
 
 			/* Checking that the correct amount of arguments were entered */
-			if ( args.length == 1 ) {
-
-				player.performCommand("lb lookup destroyed block 56 player " + args[0] + " coords");
-
+			if (args.length == 1) {
+				player.performCommand(
+						"lb lookup destroyed block 56 player " + args[0] + " coords");
 			} else {
 				/* Incorrect amount of arguments */
 				sender.sendMessage(ChatColor.RED + "Incorrect amount of arguments\n" +
@@ -51,7 +49,6 @@ public class AdminShortcuts implements CommandExecutor {
 			}
 
 		}
-
 
 		return false;
 
