@@ -4,5 +4,5 @@ BUKKIT_TARGET=bukkit-1.7.9B1938.jar
 DST_DIR=../Server/plugins
 
 javac -Xlint:all -bootclasspath "$RT_JAR:$INCLUDES_DIR/$BUKKIT_TARGET" -d ./ src/*
-jar -cfe $DST_DIR/Ignore.jar net/simpvp/Misc/Misc ./*
+jar -cfe $DST_DIR/Misc.jar net/simpvp/Misc/Misc ./*
 rm -rf net/
