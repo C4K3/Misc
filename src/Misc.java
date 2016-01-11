@@ -13,6 +13,7 @@ public class Misc extends JavaPlugin {
 		new LogCmd(this);
 		getServer().getPluginManager().registerEvents(new DisableCmd(), this);
 		//getServer().getPluginManager().registerEvents(new FollowLogoutListener(), this);
+		getServer().getPluginManager().registerEvents(new ExactSpawn(), this);
 		getServer().getPluginManager().registerEvents(new BedLog(), this);
 		DisableCmd.loadDisabledCmds();
 		getCommand("coords").setExecutor(new CoordsForAll());
