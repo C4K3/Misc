@@ -45,12 +45,13 @@ public class FirstJoinedCommand implements CommandExecutor {
 
 		long days = ((System.currentTimeMillis() - target.getFirstPlayed()) / (1000L * 60 * 60 * 24));
 		SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy");
-		String msg = target.getName() + " first joined on " + sdf.format(new Date(target.getFirstPlayed()))
-			+ ", " + days + " day";
+		String msg = target.getName() + " first joined on "
+			+ ChatColor.AQUA + sdf.format(new Date(target.getFirstPlayed()))
+			+ ChatColor.GREEN + ", " + days + " day";
 		if (days != 1)
 			msg += "s";
 		msg += " ago. Note that for people who joined before 2012,"
-		       + " this command will show a later date than the true date.";
+		       + " this command may show a later date than the true date.";
 
 		if (player == null) {
 			Misc.instance.getLogger().info(msg);
