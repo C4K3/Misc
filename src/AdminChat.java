@@ -31,7 +31,8 @@ public class AdminChat implements CommandExecutor {
 			for (int i = 0; i < args.length; i++)
 				sargs += " " + args[i];
 
-			Misc.instance.getLogger().info("[" + splayer + "]" + sargs);
+			/* Intentional use of Bukkit logger */
+			Bukkit.getLogger().info("[" + splayer + "]" + sargs);
 
 			/* For all online players, if player isOp sendMessage */
 			for (Player player : Misc.instance.getServer().getOnlinePlayers()) {
