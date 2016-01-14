@@ -21,7 +21,7 @@ public class TimeSinceLastJoin implements Listener {
 
 		if (!player.hasPlayedBefore()) {
 			Misc.instance.getLogger().info(
-					player.getName() + " joined for first time.");
+					event.getName() + " joined for first time.");
 			return;
 		}
 
