@@ -29,7 +29,7 @@ public class ExactSpawn implements Listener {
 
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled=false)
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled=false)
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
 		if (event.isBedSpawn())
 			return;
