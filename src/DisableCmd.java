@@ -61,7 +61,7 @@ public class DisableCmd implements Listener {
 			File f = new File(Misc.instance.getDataFolder(), "disabledCmds.txt");
 
 			if (!f.exists()) {
-				Bukkit.getLogger().info("No items found in disabledCmds.txt");
+				Misc.instance.getLogger().info("No items found in disabledCmds.txt");
 			} else {
 
 				BufferedReader rdr = new BufferedReader(new FileReader(f));
@@ -75,7 +75,7 @@ public class DisableCmd implements Listener {
 
 				rdr.close();
 				Collections.sort(disabledCmds);
-				Bukkit.getLogger().info("Disabling " + disabledCmds.size() + " commands from disabledCmds.txt");
+				Misc.instance.getLogger().info("Disabling " + disabledCmds.size() + " commands from disabledCmds.txt");
 
 			}
 
