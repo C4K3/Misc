@@ -3,25 +3,24 @@ package net.simpvp.Misc;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.player.PlayerLoginEvent;
 
 /**
  * Displays information about when a player last logged in.
  */
 public class TimeSinceLastJoin implements Listener {
-
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
-	public void onPlayerJoin(AsyncPlayerPreLoginEvent event) {
-		if (event.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED)
+	public void onPlayerJoin(PlayerLoginEvent event) {
+		if (event.getResult() != PlayerLoginEvent.Result.ALLOWED)
 			return;
 
-		OfflinePlayer player = Misc.instance.getServer().getOfflinePlayer(event.getUniqueId());
+		OfflinePlayer player = Misc.instance.getServer().getOfflinePlayer(event.getPlayer().getUniqueId());
 
 		if (!player.hasPlayedBefore()) {
 			Misc.instance.getLogger().info(
-					event.getName() + " joined for first time.");
+					event.getPlayer().getName() + " joined for first time.");
 			return;
 		}
 
