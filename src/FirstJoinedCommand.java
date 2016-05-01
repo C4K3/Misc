@@ -17,7 +17,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.Bukkit;
 
 /**
  * A command to let /everybody/ see when somebody first joined.
