@@ -13,9 +13,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class TimeSinceLastJoin implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
 	public void onPlayerJoin(PlayerLoginEvent event) {
-		Misc.instance.getLogger().info(event.getPlayer().getName()
-				+ " is trying to login to " + event.getHostname());
-
 		if (event.getResult() != PlayerLoginEvent.Result.ALLOWED)
 			return;
 
