@@ -32,3 +32,5 @@ commands:
     Usage: Error. Please report at http://simpvp.net/forum
   firstjoined:
     description: Displays when a player first joined
+  age:
+    description: Displays when a player first joined
