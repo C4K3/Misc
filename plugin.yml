@@ -1,7 +1,7 @@
 name: Misc
 main: net.simpvp.Misc.Misc
-version: 2
 author: C4K3.org
+version: 3
 description: Various miscellaneous features
 softdepend: [LogBlock]
 commands:
