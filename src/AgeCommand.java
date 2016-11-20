@@ -112,6 +112,8 @@ public class AgeCommand implements CommandExecutor {
 	}
 
 	private void send_result(UUID uuid, UUID target_uuid, String target_name) {
+		Player player = Misc.instance.getServer().getPlayer(uuid);
+
 		String msg;
 		if (target_uuid == null) {
 			msg = "Error retrieving data of " + target_name + ".";
@@ -134,7 +136,11 @@ public class AgeCommand implements CommandExecutor {
 
 				/* FIXME, currently this for some reason is only possible for online players, but it should be possible at all times */
 				Player on_player = Misc.instance.getServer().getPlayer(target_uuid);
-				if (on_player != null) {
+				/* We can't show this if the target player is
+				 * offline, or if the target player is invis. */
+				if (on_player != null
+						&& (player == null
+						 || player.canSee(on_player))) {
 					int played_ticks = on_player.getStatistic(Statistic.PLAY_ONE_TICK);
 					double played_minutes = played_ticks / (20 * 60);
 					double played_hours = played_minutes / 60;
@@ -147,7 +153,6 @@ public class AgeCommand implements CommandExecutor {
 			}
 		}
 
-		Player player = Misc.instance.getServer().getPlayer(uuid);
 
 		if (player == null) {
 			Misc.instance.getLogger().info(msg);
