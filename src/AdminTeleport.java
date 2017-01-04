@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.command.BlockCommandSender;
 
 /**
  * Adds the /tp, /tpc, /tpw and /tpo commands
@@ -30,7 +31,7 @@ public class AdminTeleport implements CommandExecutor {
 		if (scmd.equals("tp")) {
 			tp(player, args);
 		} else if (scmd.equals("tpc")) {
-			tpc(player, args);
+			tpc(sender, args);
 		} else if (scmd.equals("tpo")) {
 			tpo(player, args);
 		} else if (scmd.equals("tpw")) {
@@ -76,8 +77,20 @@ public class AdminTeleport implements CommandExecutor {
 
 	/**
 	 * Teleports the sender (or other player if specified) to the given coords
+	 *
+	 * This command takes a CommandSender instead of player, so that we can
+	 * get the coords of command blocks, if set, so that we can understand
+	 * relative coordinates from command blocks.
 	 */
-	private void tpc(Player player, String[] args) {
+	private void tpc(CommandSender sender, String[] args) {
+		Player player = null;
+		if (sender instanceof Player)
+			player = (Player) sender;
+
+		BlockCommandSender cb = null;
+		if (sender instanceof BlockCommandSender)
+			cb = (BlockCommandSender) sender;
+
 		if (args.length > 5 || args.length < 3) {
 			tpc_usage(player, "Invalid amount of arguments.");
 			return;
@@ -89,13 +102,45 @@ public class AdminTeleport implements CommandExecutor {
 			return;
 		}
 
-		// FIXME: See if the bogus coords are necessary to initialize
-		Location loc = new Location(Misc.instance.getServer().getWorld("world"), 0, 0, 0);
+		Location loc = null;
+		if (player != null) {
+			loc = player.getLocation();
+		} else if (sender != null) {
+			loc = cb.getBlock().getLocation();
+
+			/* Add 0.5 to each of the coordinates, so the player spawns in the center
+			 * of the block instead of at the edge. */
+			loc.setX(loc.getX() + 0.5);
+			loc.setY(loc.getY() + 0.5);
+			loc.setZ(loc.getZ() + 0.5);
+		} else {
+			loc = Misc.instance.getServer().getWorld("world").getSpawnLocation();
+		}
 
 		try {
-			loc.setX(Integer.parseInt(args[0]) + 0.5);
-			loc.setY(Integer.parseInt(args[1]) + 0.5);
-			loc.setZ(Integer.parseInt(args[2]) + 0.5);
+			if (args[0].equals("~")) {
+				// NOP
+			} else if (args[0].startsWith("~")) {
+				loc.setX(loc.getX() + Integer.parseInt(args[0].substring(1)));
+			} else {
+				loc.setX(Integer.parseInt(args[0]) + 0.5);
+			}
+
+			if (args[1].equals("~")) {
+				// NOP
+			} else if (args[1].startsWith("~")) {
+				loc.setY(loc.getY() + Integer.parseInt(args[1].substring(1)));
+			} else {
+				loc.setY(Integer.parseInt(args[1]) + 0.5);
+			}
+
+			if (args[2].equals("~")) {
+				// NOP
+			} else if (args[2].startsWith("~")) {
+				loc.setZ(loc.getZ() + Integer.parseInt(args[2].substring(1)));
+			} else {
+				loc.setZ(Integer.parseInt(args[2]) + 0.5);
+			}
 		} catch (Exception e) {
 			tpc_usage(player, "Unable to parse coordinates to numbers.");
 			return;
