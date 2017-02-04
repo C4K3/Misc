@@ -147,7 +147,7 @@ public class AgeCommand implements CommandExecutor {
 					double played_days = played_hours / 24;
 					double played_years = played_days / 365;
 					double avg_hours = played_hours / (days + 1);
-					msg += String.format("They have played for %.0f minutes = %.1f hours = %.1f days = %.4f years. For an average of %.2f hours per day.",
+					msg += String.format(" They have played for %.0f minutes = %.1f hours = %.1f days = %.4f years. For an average of %.2f hours per day.",
 							played_minutes, played_hours, played_days, played_years, avg_hours);
 				}
 			}
