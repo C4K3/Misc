@@ -34,3 +34,7 @@ commands:
     description: Displays when a player first joined
   age:
     description: Displays when a player first joined
+  requestrestart:
+    description: Request a server restart
+  cancelrestart:
+    description: Cancel a requested server restart
