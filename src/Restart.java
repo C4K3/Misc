@@ -1,6 +1,7 @@
 package net.simpvp.Misc;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,11 +22,21 @@ public class Restart implements CommandExecutor {
 			String label,
 			String[] args) {
 
+		Player player = null;
+		if (sender instanceof Player) {
+			player = (Player) sender;
+
+			int played_ticks = player.getStatistic(Statistic.PLAY_ONE_TICK);
+			int played_hours = played_ticks / (20 * 60 * 60);
+
+			if (played_hours < 100) {
+				player.sendMessage(ChatColor.RED + "You need to have played for at least 100 hours on this server to use this command.");
+				return true;
+			}
+		}
+
 		if (cmd.getName().equals("requestrestart")) {
-			Player player = null;
-			if (sender instanceof Player) {
-				player = (Player) sender;
-			} else {
+			if (player == null) {
 				sender.sendMessage("Only players can use this command");
 				return true;
 			}
