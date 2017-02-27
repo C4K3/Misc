@@ -52,7 +52,7 @@ public class Restart implements CommandExecutor {
 			/* All checks completed */
 
 
-			String msg = "[Announcement] " + player.getName() + " has requested a server restart. If you disagree with this request, type /cancelrestart. If the restart is not cancelled, the server will restart in 15 seconds.";
+			String msg = "[Announcement] " + player.getName() + " has requested a server restart. If you disagree with this request, type /cancelrestart. If it is not cancelled, the server will restart in 15 seconds.";
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
 				p.sendMessage(ChatColor.AQUA + msg);
 			}
