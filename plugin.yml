@@ -38,3 +38,5 @@ commands:
     description: Request a server restart
   cancelrestart:
     description: Cancel a requested server restart
+  say:
+    description: Say something anonymously as an admin
