@@ -154,11 +154,10 @@ public class AgeCommand implements CommandExecutor {
 		}
 
 
-		if (player == null) {
-			Misc.instance.getLogger().info(msg);
-		} else {
+		if (player != null) {
 			player.sendMessage(ChatColor.GREEN + msg);
 		}
+		Misc.instance.getLogger().info(msg);
 
 	}
 
