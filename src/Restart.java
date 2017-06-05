@@ -15,7 +15,7 @@ public class Restart implements CommandExecutor {
 	private static JavaPlugin plugin = Misc.instance;
 
 	private static boolean cancelled = true;
-	private static long last_request = 0;
+	private static long last_request = System.currentTimeMillis();
 
 	public boolean onCommand(CommandSender sender,
 			Command cmd,
