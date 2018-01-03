@@ -34,6 +34,7 @@ public class Misc extends JavaPlugin {
 		getCommand("requestrestart").setExecutor(new Restart());
 		getCommand("cancelrestart").setExecutor(new Restart());
 		getCommand("say").setExecutor(new AnonymousSay());
+		getCommand("date").setExecutor(new DateCommand());
 	}
 
 	@Override

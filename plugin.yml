@@ -40,3 +40,5 @@ commands:
     description: Cancel a requested server restart
   say:
     description: Say something anonymously as an admin
+  date:
+    description: Print the current server date
