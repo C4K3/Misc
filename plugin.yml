@@ -13,8 +13,6 @@ commands:
     description: Lets OPs go back to wherever they came from after using follow
   a:
     description: Sends a message to all other OPs on the server (private chat channel)
-  tp:
-    description: Teleports command sender to target player (autofills names)
   tpo:
     description: Teleports target player to commandsender (autofills names)
   tpc:

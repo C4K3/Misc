@@ -28,9 +28,7 @@ public class AdminTeleport implements CommandExecutor {
 
 		String scmd = cmd.getName();
 
-		if (scmd.equals("tp")) {
-			tp(player, args);
-		} else if (scmd.equals("tpc")) {
+		if (scmd.equals("tpc")) {
 			tpc(sender, args);
 		} else if (scmd.equals("tpo")) {
 			tpo(player, args);
@@ -40,39 +38,6 @@ public class AdminTeleport implements CommandExecutor {
 
 		return true;
 
-	}
-
-	/**
-	 * Teleports sender to target player
-	 * Autofills names
-	 */
-	private void tp(Player player, String[] args) {
-		if (player == null) {
-			Misc.instance.getLogger().info("You cannot use this command.");
-			return;
-		}
-
-		if (args.length != 1) {
-			player.sendMessage(ChatColor.RED
-					+ "Invalid usage.\n"
-					+ "Correct usage is: /tp <player>");
-			return;
-		}
-
-		@SuppressWarnings("deprecation") /* Only used for currently online players */
-		Player target = Misc.instance.getServer().getPlayer(args[0]);
-
-		if (target == null) {
-			player.sendMessage(ChatColor.RED
-					+ "The specified player was not found.");
-			return ;
-		}
-
-		if (player.isInsideVehicle())
-			player.leaveVehicle();
-		player.teleport(target);
-
-		notify_admins(player, "Teleported " + player.getName() + " to " + target.getName());
 	}
 
 	/**

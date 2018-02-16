@@ -22,7 +22,6 @@ public class Misc extends JavaPlugin {
 		getCommand("f").setExecutor(new Follow());
 		getCommand("b").setExecutor(new Follow());
 		getCommand("a").setExecutor(new AdminChat());
-		getCommand("tp").setExecutor(new AdminTeleport());
 		getCommand("tpo").setExecutor(new AdminTeleport());
 		getCommand("tpc").setExecutor(new AdminTeleport());
 		getCommand("tpw").setExecutor(new AdminTeleport());
