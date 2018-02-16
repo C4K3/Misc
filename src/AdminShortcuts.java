@@ -21,7 +21,7 @@ public class AdminShortcuts implements CommandExecutor {
 		 * /lb destroyed block 56 since 1d sum players world "world" */
 		if (scmd.equalsIgnoreCase("dw")) {
 			player.performCommand(
-					"lb lookup destroyed block 56 since 2d sum players world \"world\"");
+					"lb lookup destroyed block 56 since 8d sum players world \"world\"");
 			return true;
 		}
 
@@ -29,7 +29,7 @@ public class AdminShortcuts implements CommandExecutor {
 		 * /lb destroyed block 56 since 1d sum players world "pvp" */
 		if (scmd.equalsIgnoreCase("dp")) {
 			player.performCommand(
-					"lb lookup destroyed block 56 since 2d sum players world \"pvp\"");
+					"lb lookup destroyed block 56 since 8d sum players world \"pvp\"");
 			return true;
 		}
 
