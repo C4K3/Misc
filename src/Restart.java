@@ -86,7 +86,7 @@ public class Restart implements CommandExecutor {
 				sender.sendMessage("There is no restart for you to cancel.");
 			} else {
 				cancelled = true;
-				String msg = "[Announcement] " + sender.getName() + " has cancelled the requested server restart";
+				String msg = "[Announcement] " + sender.getName() + " has cancelled the requested server restart. Tip: Ask in chat if anybody minds a restart before initiating one.";
 				for (Player p : plugin.getServer().getOnlinePlayers()) {
 					p.sendMessage(ChatColor.AQUA + msg);
 				}
