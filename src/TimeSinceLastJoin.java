@@ -19,8 +19,12 @@ public class TimeSinceLastJoin implements Listener {
 		OfflinePlayer player = Misc.instance.getServer().getOfflinePlayer(event.getPlayer().getUniqueId());
 
 		if (!player.hasPlayedBefore()) {
+			/* This log message is commented out because the exact same
+			 * message also gets logged in ExactSpawn.java. Otherwise
+			 * this message should be re-enabled.
 			Misc.instance.getLogger().info(
 					event.getPlayer().getName() + " joined for first time.");
+			*/
 			return;
 		}
 
