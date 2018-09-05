@@ -52,7 +52,7 @@ public class Restart implements CommandExecutor {
 			/* All checks completed */
 
 
-			String msg = "[Announcement] " + player.getName() + " has requested a server restart. If you disagree with this request, type /cancelrestart. If it is not cancelled, the server will restart in 15 seconds.";
+			String msg = "[Announcement] " + player.getName() + " has requested a server restart. If you disagree with this request, type /cancelrestart. If it is not cancelled, the server will restart in 30 seconds.";
 			for (Player p : plugin.getServer().getOnlinePlayers()) {
 				p.sendMessage(ChatColor.AQUA + msg);
 			}
@@ -62,13 +62,13 @@ public class Restart implements CommandExecutor {
 			cancelled = false;
 
 			/* What we do now is a create an asynchronous task that
-			 * waits 15 seconds and then creates a synchronous task
+			 * waits 30 seconds and then creates a synchronous task
 			 * that calls sync_effect_restart */
 			new BukkitRunnable() {
 				@Override
 				public void run() {
 					try {
-						Thread.sleep(15000);
+						Thread.sleep(30000);
 					} catch (InterruptedException e) {
 						return;
 					}
