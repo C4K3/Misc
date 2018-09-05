@@ -116,7 +116,7 @@ public class AgeCommand implements CommandExecutor {
 
 		String msg;
 		if (target_uuid == null) {
-			msg = "Error retrieving data of " + target_name + ".";
+			msg = "Error retrieving data of " + target_name + ". No account with that name exists.";
 		} else {
 			OfflinePlayer off_player = Misc.instance.getServer().getOfflinePlayer(target_uuid);
 			if (off_player.getFirstPlayed() == 0) {
