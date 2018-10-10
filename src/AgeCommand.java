@@ -149,6 +149,45 @@ public class AgeCommand implements CommandExecutor {
 					double avg_hours = played_hours / (days + 1);
 					msg += String.format(" They have played for %.0f minutes = %.1f hours = %.1f days = %.4f years. For an average of %.2f hours per day.",
 							played_minutes, played_hours, played_days, played_years, avg_hours);
+				} else {
+					long last_played_seconds = (System.currentTimeMillis() - off_player.getLastPlayed()) / 1000L;
+					if (last_played_seconds < 0) {
+						throw new ArithmeticException();
+					}
+					long last_played_weeks = last_played_seconds / (60 * 60 * 24 * 7);
+					long last_played_months = last_played_seconds / (60 * 60 * 24 * 30);
+					long last_played_years = last_played_seconds / (60 * 60 * 24 * 365);
+
+					/* We add 1 to the printed message so that the "less than" makes sense */
+					msg += " They were last online less than ";
+					String unit;
+
+					if (last_played_weeks <= 2) {
+						msg += (last_played_weeks + 1) + " ";
+						if ((last_played_weeks + 1) == 1) {
+							unit = "week";
+						} else {
+							unit = "weeks";
+						}
+					} else if (last_played_months <= 10) {
+						msg += (last_played_months + 1) + " ";
+						if ((last_played_months + 1) == 1) {
+							unit = "month";
+						} else {
+							unit = "months";
+						}
+					} else {
+						msg += (last_played_years + 1) + " ";
+						if ((last_played_years + 1) == 1) {
+							unit = "year";
+						} else {
+							unit = "years";
+						}
+					}
+
+					msg += unit + " ago.";
+
+
 				}
 			}
 		}
