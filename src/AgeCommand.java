@@ -142,12 +142,12 @@ public class AgeCommand implements CommandExecutor {
 						&& (player == null
 						 || player.canSee(on_player))) {
 					int played_ticks = on_player.getStatistic(Statistic.PLAY_ONE_MINUTE);
-					double played_minutes = played_ticks / (20 * 60);
+					int played_minutes = played_ticks / (20 * 60);
 					double played_hours = played_minutes / 60;
 					double played_days = played_hours / 24;
 					double played_years = played_days / 365;
 					double avg_hours = played_hours / (days + 1);
-					msg += String.format(" They have played for %.0f minutes = %.1f hours = %.1f days = %.4f years. For an average of %.2f hours per day.",
+					msg += String.format(" They have played for %d minutes = %.1f hours = %.1f days = %.4f years. For an average of %.2f hours per day.",
 							played_minutes, played_hours, played_days, played_years, avg_hours);
 				} else {
 					long last_played_seconds = (System.currentTimeMillis() - off_player.getLastPlayed()) / 1000L;
