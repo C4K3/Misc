@@ -26,7 +26,7 @@ public class Restart implements CommandExecutor {
 		if (sender instanceof Player) {
 			player = (Player) sender;
 
-			int played_ticks = player.getStatistic(Statistic.PLAY_ONE_TICK);
+			int played_ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			int played_hours = played_ticks / (20 * 60 * 60);
 
 			if (played_hours < 100) {

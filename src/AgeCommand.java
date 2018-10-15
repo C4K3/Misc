@@ -141,7 +141,7 @@ public class AgeCommand implements CommandExecutor {
 				if (on_player != null
 						&& (player == null
 						 || player.canSee(on_player))) {
-					int played_ticks = on_player.getStatistic(Statistic.PLAY_ONE_TICK);
+					int played_ticks = on_player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 					double played_minutes = played_ticks / (20 * 60);
 					double played_hours = played_minutes / 60;
 					double played_days = played_hours / 24;
