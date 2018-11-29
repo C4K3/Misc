@@ -57,7 +57,7 @@ public class AdminTeleport implements CommandExecutor {
 			cb = (BlockCommandSender) sender;
 
 		if (args.length > 5 || args.length < 3) {
-			tpc_usage(player, "Invalid amount of arguments.");
+			tpc_usage(player, "Invalid number of arguments.");
 			return;
 		}
 
