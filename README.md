@@ -9,5 +9,5 @@ Compiling
 -----
 Just run `make` in the directory. To specify the bukkit jar and/or java version, run it as
 ```
-make BUKKIT=/path/to/bukkit.jar JAVA=1.7
+make PROTOCOLLIB=/path/to/protocollib.jar BUKKIT=/path/to/bukkit.jar JAVA=1.7
 ```

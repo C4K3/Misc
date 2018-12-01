@@ -34,6 +34,7 @@ public class Misc extends JavaPlugin {
 		getCommand("cancelrestart").setExecutor(new Restart());
 		getCommand("say").setExecutor(new AnonymousSay());
 		getCommand("date").setExecutor(new DateCommand());
+		Thunder.add_protocol_listeners();
 	}
 
 	@Override

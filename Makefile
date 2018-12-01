@@ -1,9 +1,10 @@
 BUKKIT=../bukkit-1.13.1B1.jar
+PROTOCOLLIB=../ProtocolLib.jar
 JAVA=1.8
 PLUGIN=Misc
 TARGET_DIR=net
 
-JFLAGS = -Xlint:all -classpath $(BUKKIT) -d ./ -source $(JAVA) -target $(JAVA)
+JFLAGS = -Xlint:all -classpath $(BUKKIT):$(PROTOCOLLIB) -d ./ -source $(JAVA) -target $(JAVA)
 JC = javac
 SOURCEFILES = $(wildcard src/*.java)
 
