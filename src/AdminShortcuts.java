@@ -40,7 +40,7 @@ public class AdminShortcuts implements CommandExecutor {
 			/* Checking that the correct amount of arguments were entered */
 			if (args.length == 1) {
 				player.performCommand(
-						"lb lookup destroyed block diamond_ore player " + args[0] + " coords");
+						"lb lookup destroyed block diamond_ore player " + args[0] + " time 0 coords");
 			} else {
 				/* Incorrect amount of arguments */
 				sender.sendMessage(ChatColor.RED + "Incorrect amount of arguments\n" +
