@@ -159,7 +159,7 @@ public class AgeCommand implements CommandExecutor {
 					long last_played_years = last_played_seconds / (60 * 60 * 24 * 365);
 
 					/* We add 1 to the printed message so that the "less than" makes sense */
-					msg += " They were last online less than ";
+					msg += " They were last online ";
 					String unit;
 
 					if (last_played_weeks <= 2) {
