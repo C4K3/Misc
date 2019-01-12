@@ -41,3 +41,5 @@ commands:
     description: Say something anonymously as an admin
   date:
     description: Print the current server date
+  uptime:
+    description: Print the current server uptime
