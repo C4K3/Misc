@@ -35,6 +35,9 @@ public class Misc extends JavaPlugin {
 		getCommand("say").setExecutor(new AnonymousSay());
 		getCommand("date").setExecutor(new DateCommand());
 		getCommand("uptime").setExecutor(new UptimeCommand());
+		NoNewPlayers nnp_instance = new NoNewPlayers();
+		getCommand("nonewplayers").setExecutor(nnp_instance);
+		getServer().getPluginManager().registerEvents(nnp_instance, this);
 		Thunder.add_protocol_listeners();
 	}
 

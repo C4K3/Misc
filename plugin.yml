@@ -43,3 +43,5 @@ commands:
     description: Print the current server date
   uptime:
     description: Print the current server uptime
+  nonewplayers:
+    description: Require joining players to have been online for N hours already
