@@ -29,16 +29,6 @@ public class AgeCommand implements CommandExecutor {
 		if (sender instanceof Player)
 			player = (Player) sender;
 
-		if (cmd.getName().equals("firstjoined")) {
-			if (player == null) {
-				Misc.instance.getLogger().info("firstjoined has been renamed to age.");
-			} else {
-				player.sendMessage(ChatColor.RED +
-						"/firstjoined has been renamed to /age.");
-			}
-			return true;
-		}
-
 		if (args.length < 1 && player == null) {
 			Misc.instance.getLogger().info("You must specify a player to use this command.");
 			return true;
