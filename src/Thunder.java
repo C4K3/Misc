@@ -30,21 +30,23 @@ public class Thunder {
 					return;
 				}
 
-				/* Change the x/y/z to random values.
-				 * x and z are up to 100 blocks in either direction
-				 * from the player.
-				 * y may not be necessary to randomize,
-				 * but we do it just to be safe */
-				Random rng = new Random();
-				int x = rng.nextInt(1600) - 800;
-				int y = rng.nextInt(200) + 400;
-				int z = rng.nextInt(1600) - 800;
-
+				/* Change the direction of all thunder packets to
+				 * a random direction, but keep the distance and height
+				 * of the thunder the same, to prevent it from
+				 * sound differently. */
 				Location playerlocation = event.getPlayer().getLocation();
+				double origx = p.getIntegers().read(0) - playerlocation.getX();
+				double origz = p.getIntegers().read(2) - playerlocation.getZ();
+				double dist = Math.sqrt(origx * origx +  origz * origz);
 
-				p.getIntegers().write(0, playerlocation.getBlockX() + x);
-				p.getIntegers().write(1, y);
-				p.getIntegers().write(2, playerlocation.getBlockZ() + z);
+				Random rng = new Random();
+				double angle = Math.toRadians(rng.nextInt(360));
+
+				int new_x = (int) (Math.cos(angle) * dist + playerlocation.getX());
+				int new_z = (int) (Math.sin(angle) * dist + playerlocation.getZ());
+
+				p.getIntegers().write(0, new_x);
+				p.getIntegers().write(2, new_z);
 			}
 
 		});	
