@@ -35,15 +35,15 @@ public class Thunder {
 				 * of the thunder the same, to prevent it from
 				 * sound differently. */
 				Location playerlocation = event.getPlayer().getLocation();
-				double origx = p.getIntegers().read(0) - playerlocation.getX();
-				double origz = p.getIntegers().read(2) - playerlocation.getZ();
+				double origx = p.getIntegers().read(0) - playerlocation.getBlockX();
+				double origz = p.getIntegers().read(2) - playerlocation.getBlockZ();
 				double dist = Math.sqrt(origx * origx +  origz * origz);
 
 				Random rng = new Random();
 				double angle = Math.toRadians(rng.nextInt(360));
 
-				int new_x = (int) (Math.cos(angle) * dist + playerlocation.getX());
-				int new_z = (int) (Math.sin(angle) * dist + playerlocation.getZ());
+				int new_x = (int) (Math.cos(angle) * dist + playerlocation.getBlockX());
+				int new_z = (int) (Math.sin(angle) * dist + playerlocation.getBlockZ());
 
 				p.getIntegers().write(0, new_x);
 				p.getIntegers().write(2, new_z);
