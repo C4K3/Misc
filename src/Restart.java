@@ -9,12 +9,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class Restart implements CommandExecutor {
 	/* Let's player use the /requestrestart and /cancelrestart commands */
 
 	private static JavaPlugin plugin = Misc.instance;
 
 	private static boolean cancelled = true;
+	private static UUID requester = null;
 	private static long last_request = System.currentTimeMillis();
 
 	public boolean onCommand(CommandSender sender,
@@ -60,6 +63,7 @@ public class Restart implements CommandExecutor {
 
 			last_request = System.currentTimeMillis();
 			cancelled = false;
+			requester = player.getUniqueId();
 
 			/* What we do now is a create an asynchronous task that
 			 * waits 30 seconds and then creates a synchronous task
@@ -84,6 +88,9 @@ public class Restart implements CommandExecutor {
 		} else if (cmd.getName().equals("cancelrestart")) {
 			if (cancelled == true) {
 				sender.sendMessage("There is no restart for you to cancel.");
+			} else if (requester != null && player != null &&
+					requester.equals(player.getUniqueId())) {
+				sender.sendMessage("You cannot cancel a restart you requested.");
 			} else {
 				cancelled = true;
 				String msg = "[Announcement] " + sender.getName() + " has cancelled the requested server restart. Tip: Ask in chat if anybody minds a restart before initiating one.";
