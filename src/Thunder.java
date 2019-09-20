@@ -26,8 +26,12 @@ public class Thunder {
 
 				Sound soundType = p.getSoundEffects().read(0);
 
-				if (soundType != Sound.ENTITY_LIGHTNING_BOLT_THUNDER) {
-					return;
+				switch (soundType) {
+					case ENTITY_LIGHTNING_BOLT_THUNDER:
+					case EVENT_RAID_HORN:
+						break;
+					default:
+						return;
 				}
 
 				/* Change the direction of all thunder packets to
