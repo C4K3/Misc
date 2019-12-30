@@ -18,6 +18,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new TimeSinceLastJoin(), this);
 		getServer().getPluginManager().registerEvents(new DisableSelectors(), this);
 		getServer().getPluginManager().registerEvents(new BedTrap(), this);
+		getServer().getPluginManager().registerEvents(new EntityResurrect(), this);
 		DisableCmd.loadDisabledCmds();
 		getCommand("coords").setExecutor(new CoordsForAll());
 		getCommand("f").setExecutor(new Follow());
