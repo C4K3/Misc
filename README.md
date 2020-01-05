@@ -7,7 +7,8 @@ For documentation read the plugin.yml or just read the (not very long source cod
 
 Compiling
 -----
-Just run `make` in the directory. To specify the bukkit jar and/or java version, run it as
+Use maven
 ```
-make PROTOCOLLIB=/path/to/protocollib.jar BUKKIT=/path/to/bukkit.jar JAVA=1.7
+mvn clean package
 ```
+and the built .jar will be in `target/Misc.jar`.
