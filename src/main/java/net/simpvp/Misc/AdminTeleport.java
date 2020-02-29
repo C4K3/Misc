@@ -70,7 +70,7 @@ public class AdminTeleport implements CommandExecutor {
 		Location loc = null;
 		if (player != null) {
 			loc = player.getLocation();
-		} else if (sender != null) {
+		} else if (cb != null) {
 			loc = cb.getBlock().getLocation();
 
 			/* Add 0.5 to each of the coordinates, so the player spawns in the center
