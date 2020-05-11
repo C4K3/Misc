@@ -40,7 +40,13 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		Player player = event.getPlayer();
 		OfflinePlayer offplayer = Misc.instance.getServer().getOfflinePlayer(player.getUniqueId());
 
+		/* OPs can join unconditionally */
 		if (player.isOp()) {
+			return;
+		}
+
+		/* Whitelisted players can join unconditionally */
+		if (player.isWhitelisted()) {
 			return;
 		}
 
