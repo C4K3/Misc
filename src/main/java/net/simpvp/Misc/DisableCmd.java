@@ -8,11 +8,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.ServerCommandEvent;
 
 public class DisableCmd implements Listener {
 	/* Disables all commands in the disabled.txt file
@@ -44,6 +46,31 @@ public class DisableCmd implements Listener {
 			disable_event(event, "Blocked command that contained :");
 		}
 
+	}
+
+	@EventHandler(priority=EventPriority.HIGHEST,ignoreCancelled=true)
+	public void onServerCommandEvent(ServerCommandEvent event) {
+		if (event.getSender() instanceof ConsoleCommandSender) {
+			Misc.instance.getLogger().info("console");
+			return;
+		}
+
+		String[] split = event.getCommand().split(" ");
+		if (split.length < 1) {
+			return;
+		}
+
+		String cmd = split[0].trim().toLowerCase();
+
+		if (Collections.binarySearch(disabledCmds, cmd) >= 0) {
+			event.getSender().sendMessage("You do not have permission to use this command.");
+			Misc.instance.getLogger().info("Blocked commanad '" + cmd + "' found in disabledCmds.txt");
+			event.setCancelled(true);
+		} else if (cmd.contains(":")) {
+			event.getSender().sendMessage("You do not have permission to use this command.");
+			Misc.instance.getLogger().info("Blocked commanad '" + cmd + "' that contained :");
+			event.setCancelled(true);
+		}
 	}
 
 	private void disable_event(PlayerCommandPreprocessEvent event, String blocked_message) {
