@@ -51,7 +51,6 @@ public class DisableCmd implements Listener {
 	@EventHandler(priority=EventPriority.HIGHEST,ignoreCancelled=true)
 	public void onServerCommandEvent(ServerCommandEvent event) {
 		if (event.getSender() instanceof ConsoleCommandSender) {
-			Misc.instance.getLogger().info("console");
 			return;
 		}
 
