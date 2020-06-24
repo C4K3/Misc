@@ -22,7 +22,7 @@ public class DisableCmd implements Listener {
 	 */
 
 	private static List<String> disabledCmds;
-
+	private static List<String> nonplayerCmds;
 	private static List<String> opOnlyCmds;
 
 	private Player player;
@@ -39,7 +39,8 @@ public class DisableCmd implements Listener {
 
 		if (Collections.binarySearch(disabledCmds, cmd) >= 0 ) {
 			disable_event(event, "Blocked command found in disabledCmds.txt");
-
+		} else if (Collections.binarySearch(nonplayerCmds, cmd) >= 0 && !player.isOp()) {
+			disable_event(event, "Blocked command found in nonplayerCmds.txt");
 		} else if (Collections.binarySearch(opOnlyCmds, cmd) >= 0 && !player.isOp()) {
 			disable_event(event, "Blocked command found in opOnlyCmds.txt");
 		} else if (cmd.contains(":")) {
@@ -131,6 +132,35 @@ public class DisableCmd implements Listener {
 				rdr.close();
 				Collections.sort(opOnlyCmds);
 				Misc.instance.getLogger().info("Disabling " + opOnlyCmds.size() + " commands from opOnlyCmds.txt");
+
+			}
+
+		} catch (Exception e) {
+			Misc.instance.getLogger().info("Unexpected error: " + e.getMessage());
+		}
+
+		/* Adding commands that are disabled for all players.
+		 * Reads from plugins/Misc/opOnlyCmds.txt */
+		try {
+			nonplayerCmds = new ArrayList<String>();
+			File f = new File(Misc.instance.getDataFolder(), "nonplayerCmds.txt");
+
+			if (!f.exists()) {
+				Bukkit.getLogger().info("No items found in nonplayerCmds.txt");
+			} else {
+
+				BufferedReader rdr = new BufferedReader(new FileReader(f));
+				String line;
+
+				while ((line = rdr.readLine()) != null) {
+					line = line.trim();
+					if (line.length() < 1) continue;
+					nonplayerCmds.add(line.trim().toLowerCase());
+				}
+
+				rdr.close();
+				Collections.sort(nonplayerCmds);
+				Misc.instance.getLogger().info("Disabling " + nonplayerCmds.size() + " commands from nonplayerCmds.txt");
 
 			}
 
