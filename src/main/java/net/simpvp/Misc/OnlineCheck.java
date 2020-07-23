@@ -20,7 +20,7 @@ public class OnlineCheck implements CommandExecutor {
 			String label,
 			String[] args) {
 
-		if (cmd.getName().equals("onlinecheck")) {
+		if (cmd.getName().equals("checkonline")) {
 			online_check(sender);
 		} else if (cmd.getName().equals("on")) {
 			im_on(sender);

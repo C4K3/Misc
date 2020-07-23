@@ -39,7 +39,7 @@ public class Misc extends JavaPlugin {
 		NoNewPlayers nnp_instance = new NoNewPlayers();
 		getCommand("nonewplayers").setExecutor(nnp_instance);
 		OnlineCheck oc_instance = new OnlineCheck();
-		getCommand("onlinecheck").setExecutor(oc_instance);
+		getCommand("checkonline").setExecutor(oc_instance);
 		getCommand("on").setExecutor(oc_instance);
 		getServer().getPluginManager().registerEvents(nnp_instance, this);
 		Thunder.add_protocol_listeners();

@@ -43,7 +43,7 @@ commands:
     description: Print the current server uptime
   nonewplayers:
     description: Require joining players to have been online for N hours already
-  onlinecheck:
+  checkonline:
     description: Require online players to verify that they're not AFK.
   "on":
     description: Command used by players to verify that they're not AFK.
