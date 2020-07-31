@@ -145,6 +145,11 @@ public class AdminTeleport implements CommandExecutor {
 			target = player;
 		}
 
+		if (!loc.getWorld().getWorldBorder().isInside(loc)) {
+			tpc_usage(player, "You cannot teleport outside the world border.");
+			return;
+		}
+
 		if (target.isInsideVehicle())
 			target.leaveVehicle();
 		target.teleport(loc);
