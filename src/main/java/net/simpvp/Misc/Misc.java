@@ -30,6 +30,7 @@ public class Misc extends JavaPlugin {
 		getCommand("tpw").setExecutor(new AdminTeleport());
 		getCommand("dw").setExecutor(new AdminShortcuts());
 		getCommand("dp").setExecutor(new AdminShortcuts());
+		getCommand("nearby").setExecutor(new Nearby());
 		getCommand("x").setExecutor(new AdminShortcuts());
 		getCommand("age").setExecutor(new AgeCommand());
 		getCommand("requestrestart").setExecutor(new Restart());

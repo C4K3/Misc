@@ -47,3 +47,5 @@ commands:
     description: Require online players to verify that they're not AFK.
   "on":
     description: Command used by players to verify that they're not AFK.
+  nearby:
+    description: Show nearby players
