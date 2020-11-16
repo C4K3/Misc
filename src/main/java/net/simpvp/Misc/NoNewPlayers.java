@@ -1,5 +1,6 @@
 package net.simpvp.Misc;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -17,11 +18,19 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 	/* How many hours a player must have played to be allowed to log in,
 	 * a negative value means anybody may log in, 0 means somebody who has
 	 * logged in at least once for any amount of time may log in. */
-	private int hours_required = -1;
+	private int hours_required;
 
 	private String kick_msg = ChatColor.RED + "You have reached SimplicityPvP\n\n"
 		+ "We're sorry, the server is currently being swarmed by alts, and therefore new players are temporarily restricted from joining the server.\n\n"
 		+ "Please try again later.";
+
+	public NoNewPlayers() {
+		FileConfiguration config = Misc.instance.getConfig();
+		config.addDefault("NoNewPlayers", -1);
+		hours_required = config.getInt("NoNewPlayers");
+		Misc.instance.saveConfig();
+		Misc.instance.getLogger().info("NoNewPlayers set to " + hours_required);
+	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled=false)
 	public void onPlayerLogin(PlayerLoginEvent event) {
@@ -68,7 +77,10 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		if (sender instanceof Player) {
 			player = (Player) sender;
 			if (!player.isOp()) {
-				player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+				String msg = (hours_required < 0) ?
+						"Not currently blocking players from joining" :
+						"Currently blocking players with less than " + hours_required + " hours played from joining";
+				player.sendMessage(msg);
 				return true;
 			}
 		}
@@ -84,6 +96,9 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 			sender.sendMessage("Invalid integer " + args[0]);
 			return true;
 		}
+
+		Misc.instance.getConfig().set("NoNewPlayers", hours_required);
+		Misc.instance.saveConfig();
 
 		String m = "/nonewplayers hours required set to " + hours_required;
 		sender.sendMessage(m);
