@@ -49,3 +49,5 @@ commands:
     description: Command used by players to verify that they're not AFK.
   nearby:
     description: Show nearby players
+  entitycounts:
+    description: Show number of entities near players
