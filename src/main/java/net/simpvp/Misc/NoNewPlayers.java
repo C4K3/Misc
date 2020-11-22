@@ -1,17 +1,16 @@
 package net.simpvp.Misc;
 
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Statistic;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.entity.Player;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.Statistic;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 
 public class NoNewPlayers implements Listener,CommandExecutor {
 
@@ -25,10 +24,7 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		+ "Please try again later.";
 
 	public NoNewPlayers() {
-		FileConfiguration config = Misc.instance.getConfig();
-		config.addDefault("NoNewPlayers", -1);
-		hours_required = config.getInt("NoNewPlayers");
-		Misc.instance.saveConfig();
+		hours_required = Misc.instance.getConfig().getInt("NoNewPlayers");
 		Misc.instance.getLogger().info("NoNewPlayers set to " + hours_required);
 	}
 
@@ -97,6 +93,7 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 			return true;
 		}
 
+		Misc.instance.reloadConfig();
 		Misc.instance.getConfig().set("NoNewPlayers", hours_required);
 		Misc.instance.saveConfig();
 
