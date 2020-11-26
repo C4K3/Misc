@@ -3,7 +3,7 @@ main: net.simpvp.Misc.Misc
 version: 4
 author: simpvp.net
 description: Various miscellaneous features
-softdepend: [LogBlock, ProtocolLib]
+softdepend: [LogBlock, ProtocolLib, VanishNoPacket]
 api-version: 1.13
 commands:
   coords:

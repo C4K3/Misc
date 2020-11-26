@@ -31,7 +31,9 @@ public class Misc extends JavaPlugin {
 		getCommand("dp").setExecutor(new AdminShortcuts());
 		getCommand("nearby").setExecutor(new Nearby());
 		getCommand("x").setExecutor(new AdminShortcuts());
-		getCommand("age").setExecutor(new AgeCommand());
+		AgeCommand ac_instance = new AgeCommand();
+		getCommand("age").setExecutor(ac_instance);
+		getServer().getPluginManager().registerEvents(ac_instance, this);
 		getCommand("requestrestart").setExecutor(new Restart());
 		getCommand("cancelrestart").setExecutor(new Restart());
 		getCommand("say").setExecutor(new AnonymousSay());
