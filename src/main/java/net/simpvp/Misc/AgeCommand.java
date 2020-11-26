@@ -2,6 +2,7 @@ package net.simpvp.Misc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,13 +17,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.Statistic;
+import org.kitteh.vanish.event.VanishStatusChangeEvent;
 
 /**
  * A command to let /everybody/ see when somebody first joined.
  */
-public class AgeCommand implements CommandExecutor {
+public class AgeCommand implements Listener, CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = null;
@@ -118,13 +122,13 @@ public class AgeCommand implements CommandExecutor {
 				SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy");
 
 				msg = off_player.getName() + " first joined on "
-					+ ChatColor.AQUA + sdf.format(new Date(off_player.getFirstPlayed()))
-					+ ChatColor.GREEN + ", " + days + " day";
+						+ ChatColor.AQUA + sdf.format(new Date(off_player.getFirstPlayed()))
+						+ ChatColor.GREEN + ", " + days + " day";
 				if (days != 1)
 					msg += "s";
 				msg += " ago.";
 
-				int played_ticks = off_player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+				int played_ticks = getTimePlayed(off_player);
 				int played_minutes = played_ticks / (20 * 60);
 				double played_hours = played_minutes / 60.0;
 				double played_days = played_hours / 24.0;
@@ -186,5 +190,29 @@ public class AgeCommand implements CommandExecutor {
 
 	}
 
+	private static final HashMap<UUID, Integer> op_time_played = new HashMap<>();
+
+	@EventHandler
+	public void onVanishStatusChange(VanishStatusChangeEvent event) {
+		Player player = event.getPlayer();
+		UUID uuid = player.getUniqueId();
+		if (event.isVanishing()) {
+			op_time_played.put(uuid, player.getStatistic(Statistic.PLAY_ONE_MINUTE));
+		}
+		else {
+			op_time_played.remove(uuid);
+		}
+	}
+
+	/**
+	 * Get the time played for a player, or their last known playtime if currently vanished.
+	 * @param off_player Player to get time for
+	 * @return time
+	 */
+	public static int getTimePlayed(OfflinePlayer off_player) {
+		return op_time_played.getOrDefault(
+				off_player.getUniqueId(),
+				off_player.getStatistic(Statistic.PLAY_ONE_MINUTE));
+	}
 }
 
