@@ -45,7 +45,9 @@ public class Misc extends JavaPlugin {
 		getCommand("checkonline").setExecutor(oc_instance);
 		getCommand("on").setExecutor(oc_instance);
 		getServer().getPluginManager().registerEvents(nnp_instance, this);
-		getCommand("entitycounts").setExecutor(new EntityCounts());
+		EntityCounts ec_instance = new EntityCounts();
+		getCommand("entitycounts").setExecutor(ec_instance);
+		getCommand("entitycounts").setTabCompleter(ec_instance);
 
 		Thunder.add_protocol_listeners();
 		this.getConfig().options().copyDefaults(true);
