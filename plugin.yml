@@ -51,3 +51,5 @@ commands:
     description: Show nearby players
   entitycounts:
     description: Show number of entities near players
+  relativecoords:
+    description: Compute relative coords between two points

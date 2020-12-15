@@ -48,6 +48,9 @@ public class Misc extends JavaPlugin {
 		EntityCounts ec_instance = new EntityCounts();
 		getCommand("entitycounts").setExecutor(ec_instance);
 		getCommand("entitycounts").setTabCompleter(ec_instance);
+		RelativeCoords rc_instance = new RelativeCoords();
+		getServer().getPluginManager().registerEvents(rc_instance, this);
+		getCommand("relativecoords").setExecutor(rc_instance);
 
 		Thunder.add_protocol_listeners();
 		this.getConfig().options().copyDefaults(true);
