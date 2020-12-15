@@ -1,4 +1,5 @@
 NoNewPlayers: -1
+logNonPlayerCmds: true
 disabledCmds: []
 nonplayerCmds: []
 oponlyCmds: []

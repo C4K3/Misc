@@ -8,6 +8,9 @@ public class Misc extends JavaPlugin {
 
 	@Override
 	public void onEnable(){
+		this.getConfig().options().copyDefaults(true);
+		this.saveConfig();
+
 		instance = this;
 		new ConsoleDeathLog(this);
 		new LogCmd(this);
@@ -53,8 +56,6 @@ public class Misc extends JavaPlugin {
 		getCommand("relativecoords").setExecutor(rc_instance);
 
 		Thunder.add_protocol_listeners();
-		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
 	}
 
 	@Override
