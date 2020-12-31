@@ -18,6 +18,8 @@ public class BedLog implements Listener {
 		String msg = event.getPlayer().getName();
 		if (event.isBedSpawn()) {
 			msg += " is respawning at their bed at ";
+		} else if (event.isAnchorSpawn()) {
+			msg += " is respawning at their anchor at ";
 		} else {
 			msg += " is respawning at spawn at ";
 		}
@@ -29,20 +31,22 @@ public class BedLog implements Listener {
 			+ " " + loc.getBlockZ();
 
 		Misc.instance.getLogger().info(msg);
-
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		Block block = event.getBed();
-		String msg = event.getPlayer().getName() + " entered a bed at "
-			+ block.getWorld().getName()
-			+ " " + block.getX()
+		String msg = event.getPlayer().getName() + " tried to enter a bed at "
+			+ block.getX()
 			+ " " + block.getY()
-			+ " " + block.getZ();
+			+ " " + block.getZ()
+			+ " " + block.getWorld().getName()
+			+ " (" + event.getBedEnterResult() + ")";
+		if (event.isCancelled()) {
+			msg += " (cancelled)";
+		}
 
 		Misc.instance.getLogger().info(msg);
-
 	}
 
 }
