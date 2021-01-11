@@ -25,7 +25,7 @@ public class ConsoleDeathLog implements Listener {
 				+ " " + loc.getBlockX()
 				+ " " + loc.getBlockY()
 				+ " " + loc.getBlockZ()
-				+ " for " + event.getEntity().getName();
+				+ " (" + event.getEntity().getName() + " died)";
 		/* Log player level and inventory contents just in case.
 		 * The output log format should be consistent with the
 		 * /eventrestore command format */
