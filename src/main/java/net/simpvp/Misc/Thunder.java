@@ -29,6 +29,7 @@ public class Thunder {
 				switch (soundType) {
 					case ENTITY_LIGHTNING_BOLT_THUNDER:
 					case EVENT_RAID_HORN:
+					case ENTITY_WITHER_SPAWN:
 						break;
 					default:
 						return;
