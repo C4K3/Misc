@@ -60,6 +60,7 @@ public class OnlineCheck implements CommandExecutor {
 				continue;
 			}
 			waiting_for.add(p.getUniqueId());
+			p.sendTitle(ChatColor.GOLD + "/on", "Please verify that you're online", 10, 550, 20);
 		}
 
 		/* 30 seconds in the future */
@@ -112,6 +113,7 @@ public class OnlineCheck implements CommandExecutor {
 
 		if (waiting_for.remove(player.getUniqueId())) {
 			player.sendMessage(ChatColor.GREEN + "Thank you!");
+			player.resetTitle();
 		} else {
 			player.sendMessage(ChatColor.GREEN + "You're good.");
 		}
