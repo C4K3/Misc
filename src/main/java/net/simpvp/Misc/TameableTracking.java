@@ -1,15 +1,16 @@
 package net.simpvp.Misc;
 
 import org.bukkit.Location;
-import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Tameable;
-import org.bukkit.entity.Sittable;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Sittable;
+import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -48,7 +49,7 @@ public class TameableTracking implements Listener {
 		} else {
 			return;
 		}
-		if (!entity.isTamed()) {
+		if (!entity.isTamed() || entity.getOwner() == null) {
 			return;
 		}
 
@@ -64,11 +65,11 @@ public class TameableTracking implements Listener {
 	}
 
 	private boolean owner_in_range(Tameable entity) {
-		UUID uuid = entity.getOwner().getUniqueId();
-		Player player = Misc.instance.getServer().getPlayer(uuid);
-		if (player == null) {
+		AnimalTamer owner = entity.getOwner();
+		if (!(owner instanceof Player)) {
 			return false;
 		}
+		Player player = (Player) owner;
 
 		try {
 			double distance = entity.getLocation().distanceSquared(player.getLocation());
