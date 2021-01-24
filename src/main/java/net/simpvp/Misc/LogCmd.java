@@ -9,7 +9,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.ServerCommandEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class logs all user commands, including cancelled commands
@@ -22,7 +27,7 @@ public class LogCmd {
 		plugin.getServer().getPluginManager().registerEvents(new PlayerLogger(), plugin);
 
 		if (plugin.getConfig().getBoolean("logNonPlayerCmds")) {
-			plugin.getServer().getPluginManager().registerEvents(new NonPlayerLogger(), plugin);
+			new NonPlayerLogger(plugin);
 		}
 	}
 
@@ -47,6 +52,21 @@ public class LogCmd {
 	}
 
 	private class NonPlayerLogger implements Listener {
+
+		private HashMap<String, Integer> repetitions = new HashMap<>();
+
+		public NonPlayerLogger(Misc plugin) {
+			plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
+			// Dump the saved repetitions every 5 minutes
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					log_repetitions();
+				}
+			}.runTaskTimer(plugin, 20L * 60 * 5, 20L * 60 * 5);
+		}
+
 		@EventHandler(priority=EventPriority.MONITOR,ignoreCancelled=false)
 		public void onServerCommandEvent(ServerCommandEvent event) {
 			String msg = "ServerCommandEvent from " + event.getSender().getName();
@@ -65,9 +85,29 @@ public class LogCmd {
 				msg = "(Cancelled) " + msg;
 			}
 
-			/* Intentional use of bukkit logger instead of plugin logger */
-			Bukkit.getLogger().info(msg);
+			Integer r = repetitions.putIfAbsent(msg, 0);
+			if (r == null) {
+				/* Intentional use of bukkit logger instead of plugin logger */
+				Bukkit.getLogger().info(msg);
+			} else {
+				repetitions.put(msg, r + 1);
+			}
+		}
+
+		@EventHandler(priority=EventPriority.NORMAL, ignoreCancelled=true)
+		public void onPluginDisable(PluginDisableEvent event) {
+			log_repetitions();
+		}
+
+		private void log_repetitions() {
+			for (Map.Entry<String, Integer> e : repetitions.entrySet()) {
+				if (e.getValue() == 0) {
+					continue;
+				}
+				/* Intentional use of bukkit logger instead of plugin logger */
+				Bukkit.getLogger().info(String.format("Hid %d repetitions of %s", e.getValue(), e.getKey()));
+			}
+			repetitions.clear();
 		}
 	}
 }
-
