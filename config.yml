@@ -1,5 +1,6 @@
 NoNewPlayers: -1
 logNonPlayerCmds: true
+disableSelectors: true
 disabledCmds: []
 nonplayerCmds: []
 oponlyCmds: []

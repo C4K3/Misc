@@ -19,7 +19,9 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ExactSpawn(), this);
 		getServer().getPluginManager().registerEvents(new BedLog(), this);
 		getServer().getPluginManager().registerEvents(new TimeSinceLastJoin(), this);
-		getServer().getPluginManager().registerEvents(new DisableSelectors(), this);
+		if (this.getConfig().getBoolean("disableSelectors")) {
+			getServer().getPluginManager().registerEvents(new DisableSelectors(), this);
+		}
 		getServer().getPluginManager().registerEvents(new BedTrap(), this);
 		getServer().getPluginManager().registerEvents(new EntityResurrect(), this);
 		getServer().getPluginManager().registerEvents(new AdminNameChange(), this);
