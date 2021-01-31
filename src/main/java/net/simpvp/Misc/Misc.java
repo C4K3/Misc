@@ -55,6 +55,7 @@ public class Misc extends JavaPlugin {
 		EntityCounts ec_instance = new EntityCounts();
 		getCommand("entitycounts").setExecutor(ec_instance);
 		getCommand("entitycounts").setTabCompleter(ec_instance);
+		getCommand("convertbedrock").setExecutor(new Bedrock());
 		RelativeCoords rc_instance = new RelativeCoords();
 		getServer().getPluginManager().registerEvents(rc_instance, this);
 		getCommand("relativecoords").setExecutor(rc_instance);

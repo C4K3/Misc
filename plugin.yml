@@ -53,3 +53,5 @@ commands:
     description: Show number of entities near players
   relativecoords:
     description: Compute relative coords between two points
+  convertbedrock:
+    description: Convert everything to bedrock
