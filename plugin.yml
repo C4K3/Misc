@@ -58,3 +58,5 @@ commands:
     description: Compute relative coords between two points
   motd:
     description: Show the server motd
+  convertbedrock:
+    description: Convert everything to bedrock
