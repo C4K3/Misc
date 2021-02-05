@@ -4,3 +4,4 @@ disableSelectors: true
 disabledCmds: []
 nonplayerCmds: []
 oponlyCmds: []
+blockLogWorlds: []

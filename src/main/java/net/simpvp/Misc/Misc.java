@@ -14,6 +14,7 @@ public class Misc extends JavaPlugin {
 		instance = this;
 		new ConsoleDeathLog(this);
 		new LogCmd(this);
+		new BlockLog(this);
 		getServer().getPluginManager().registerEvents(new DisableCmd(), this);
 		//getServer().getPluginManager().registerEvents(new FollowLogoutListener(), this);
 		getServer().getPluginManager().registerEvents(new ExactSpawn(), this);
