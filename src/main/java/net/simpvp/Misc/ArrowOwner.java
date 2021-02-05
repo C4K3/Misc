@@ -35,6 +35,9 @@ public class ArrowOwner implements Listener {
 		} catch (ClassNotFoundException e) {
 			Misc.instance.getLogger().warning("Error enabling ArrowOwner mitigation: " + e);
 			e.printStackTrace();
+			nmsEntity = null;
+			nbtTagCompound = null;
+			bukkitCraftEntity = null;
 			return;
 		}
 		Misc.instance.getLogger().info("ArrowOwner mitigation enabled");
