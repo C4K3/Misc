@@ -149,33 +149,33 @@ public class AgeCommand implements Listener, CommandExecutor {
 					long last_played_years = last_played_seconds / (60 * 60 * 24 * 365);
 
 					/* We add 1 to the printed message so that the "less than" makes sense */
-					msg += " They were last online ";
+					msg += " They were last online within the past ";
 					String unit;
 
 					if (last_played_weeks <= 2) {
-						msg += (last_played_weeks + 1) + " ";
 						if ((last_played_weeks + 1) == 1) {
 							unit = "week";
 						} else {
+							msg += (last_played_weeks + 1) + " ";
 							unit = "weeks";
 						}
 					} else if (last_played_months <= 10) {
-						msg += (last_played_months + 1) + " ";
 						if ((last_played_months + 1) == 1) {
 							unit = "month";
 						} else {
+							msg += (last_played_months + 1) + " ";
 							unit = "months";
 						}
 					} else {
-						msg += (last_played_years + 1) + " ";
 						if ((last_played_years + 1) == 1) {
 							unit = "year";
 						} else {
+							msg += (last_played_years + 1) + " ";
 							unit = "years";
 						}
 					}
 
-					msg += unit + " ago.";
+					msg += unit + ".";
 
 
 				}
