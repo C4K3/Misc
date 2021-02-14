@@ -17,6 +17,9 @@ import org.bukkit.scheduler.BukkitRunnable;
  *
  * This is to mitigate an exploit in which shot arrows can leak their shooters
  * information, even long after the fact.
+ *
+ * Test this using
+ * /execute as @e[type=arrow] run data get entity @s
  */
 public class ArrowOwner implements Listener {
 
