@@ -28,6 +28,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new AdminNameChange(), this);
 		getServer().getPluginManager().registerEvents(new TameableTracking(), this);
 		getServer().getPluginManager().registerEvents(new ArrowOwner(), this);
+		getServer().getPluginManager().registerEvents(new DamageSource(this.getConfig().getInt("projectileOwnerMaxDistance")), this);
 		getCommand("coords").setExecutor(new CoordsForAll());
 		getCommand("f").setExecutor(new Follow());
 		getCommand("b").setExecutor(new Follow());

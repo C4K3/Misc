@@ -5,3 +5,4 @@ disabledCmds: []
 nonplayerCmds: []
 oponlyCmds: []
 blockLogWorlds: []
+projectileOwnerMaxDistance: 300
