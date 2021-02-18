@@ -17,10 +17,10 @@ import org.bukkit.util.Vector;
  */
 public class DamageSource implements Listener {
 
-    private final int maxDistance;
+    private final int maxDistanceSq;
 
     public DamageSource(int maxDistance) {
-        this.maxDistance = maxDistance;
+        this.maxDistanceSq = maxDistance * maxDistance;
     }
 
     /**
@@ -53,7 +53,7 @@ public class DamageSource implements Listener {
 
 
                 // I'm wincing but it shouldn't be too much math
-                if (projectile.getLocation().distance(shooter.getLocation()) > this.maxDistance) {
+                if (projectile.getLocation().distanceSquared(shooter.getLocation()) > this.maxDistanceSq) {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -67,6 +67,4 @@ public class DamageSource implements Listener {
             }
         }
     }
-
-
 }
