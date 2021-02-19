@@ -1,5 +1,6 @@
 package net.simpvp.Misc;
 
+import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,7 +33,11 @@ public class DamageSource implements Listener {
         if (event.getEntityType() == EntityType.PRIMED_TNT) {
             final TNTPrimed tnt = (TNTPrimed) event.getEntity();
 
-            tnt.setSource(null);
+            if (tnt.getSource() instanceof Player) {
+                if (checkDist(tnt.getLocation(), tnt.getSource().getLocation())) {
+                    tnt.setSource(null);
+                }
+            }
         }
     }
 
@@ -48,16 +53,18 @@ public class DamageSource implements Listener {
             // This SHOULD always be a successful cast
             final Projectile projectile = (Projectile) event.getDamager();
 
+            final Entity entity = event.getEntity();
+
             if (projectile.getShooter() instanceof Player) {
                 final Player shooter = (Player) projectile.getShooter();
 
 
                 // I'm wincing but it shouldn't be too much math
-                if (projectile.getLocation().distanceSquared(shooter.getLocation()) > this.maxDistanceSq) {
+                if (checkDist(projectile.getLocation(), shooter.getLocation())) {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            event.getEntity().setVelocity(new Vector(0, event.getEntity().getVelocity().getY(), 0));
+                            entity.setVelocity(new Vector(0, entity.getVelocity().getY(), 0));
 
                         }
                         // The velocity should be sent all at once, so we don't send 2 conflicting ones
@@ -66,5 +73,12 @@ public class DamageSource implements Listener {
                 }
             }
         }
+    }
+
+    /**
+     * Should not be capable of throwing an {@link IllegalArgumentException}
+     */
+    private boolean checkDist(Location to, Location from) {
+        return to.getWorld() != from.getWorld() || to.distanceSquared(from) > this.maxDistanceSq;
     }
 }
