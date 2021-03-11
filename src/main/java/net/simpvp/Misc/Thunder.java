@@ -42,7 +42,13 @@ public class Thunder {
 				Location playerlocation = event.getPlayer().getLocation();
 				double origx = p.getIntegers().read(0) - playerlocation.getBlockX();
 				double origz = p.getIntegers().read(2) - playerlocation.getBlockZ();
-				double dist = Math.sqrt(origx * origx +  origz * origz);
+				double dist_squared = origx * origx + origz * origz;
+				double dist;
+				if (dist_squared > 1000 * 1000) {
+					dist = 1000.0;
+				} else {
+					dist = Math.sqrt(dist_squared);
+				}
 
 				Random rng = new Random();
 				double angle = Math.toRadians(rng.nextInt(360));
