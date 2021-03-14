@@ -14,6 +14,9 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -79,10 +82,12 @@ public class RelativeCoords implements Listener, CommandExecutor {
 		int y = s.left.getY() - s.right.getY();
 		int z = s.left.getZ() - s.right.getZ();
 
-		String c = String.format("tellraw %s [{\"text\":\"Relative coords: ~%d ~%d ~%d\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"~%d ~%d ~%d\"}}]", player.getName(), x, y, z, x, y, z);
+		TextComponent chat = new TextComponent(String.format("Relative coords: ~%d ~%d ~%d", x, y, z));
+		ClickEvent click = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("~%d ~%d ~%d", x, y, z));
+		chat.setClickEvent(click);
 
-		// It's unfortunate that player.sendRawMessage doesn't behave like this
-		Misc.instance.getServer().dispatchCommand(Misc.instance.getServer().getConsoleSender(), c);
+		sender.spigot().sendMessage(chat);
+
 		return true;
 	}
 }
