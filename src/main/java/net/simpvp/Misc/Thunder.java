@@ -11,6 +11,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.BlockPosition;
 
 public class Thunder {
 
@@ -70,12 +71,49 @@ public class Thunder {
 				new_x *= 8;
 				new_z *= 8;
 
-				p.getIntegers().write(0, new_x);
-				p.getIntegers().write(2, new_z);
+				p.getIntegers().writeSafely(0, new_x);
+				p.getIntegers().writeSafely(2, new_z);
 			}
 
-		});	
-	}
+		});
 
+	ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(Misc.instance, ListenerPriority.NORMAL, PacketType.Play.Server.WORLD_EVENT) {
+			@Override
+			public void onPacketSending(PacketEvent event) {
+				// For every WORLD_EVENT packet just set the
+				// position of the packet source to be the same
+				// as player receiving the packet.
+				//
+				// The exploit for this works the same as for
+				// thunder, the only real difference being that
+				// this packet doesn't do the times 8 thing
+				// that the sound packet does.
+				//
+				// This packet conveniently has a global field,
+				// which should be set on every packet that
+				// occurs from far away (though in theory we're
+				// not guaranteed that.) The global field has
+				// this convenient behavior where setting it
+				// means the position isn't used for loudness.
+				// So setting the coords to 0,0 doesn't cause
+				// it to sound too unnatural, we wouldn't gain
+				// anything over this by setting actually
+				// random coords, like we do for thunder sound
+				// packets.
+
+				PacketContainer p = event.getPacket();
+
+				Boolean global = p.getBooleans().read(0);
+				if (global == false) {
+					return;
+				}
+
+				Integer effect_id = p.getIntegers().read(0);
+				BlockPosition position = new BlockPosition(0, 100, 0);
+				p.getBlockPositionModifier().writeSafely(0, position);
+			}
+	});
+
+	}
 }
 
