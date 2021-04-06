@@ -2,6 +2,7 @@ package net.simpvp.Misc;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 public class Misc extends JavaPlugin {
 
 	public static JavaPlugin instance;
@@ -59,6 +60,7 @@ public class Misc extends JavaPlugin {
 		RelativeCoords rc_instance = new RelativeCoords();
 		getServer().getPluginManager().registerEvents(rc_instance, this);
 		getCommand("relativecoords").setExecutor(rc_instance);
+		getServer().getPluginManager().registerEvents(new PotionEffectListener(), this);
 
 		Thunder.add_protocol_listeners();
 	}
