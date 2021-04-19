@@ -15,11 +15,16 @@ public class AdminNameChange implements Listener {
 			return;
 		}
 
-		if (!event.getJoinMessage().matches("^.* \\(formerly known as .*$")) {
+		String jm = event.getJoinMessage();
+		if (jm == null) {
 			return;
 		}
 
-		Misc.instance.getLogger().info("Removing name change info from: " + event.getJoinMessage());
-		event.setJoinMessage(event.getJoinMessage().replaceFirst(" \\(formerly known as \\S+\\) ", " "));
+		if (!jm.matches("^.* \\(formerly known as .*$")) {
+			return;
+		}
+
+		Misc.instance.getLogger().info("Removing name change info from: " + jm);
+		event.setJoinMessage(jm.replaceFirst(" \\(formerly known as \\S+\\) ", " "));
 	}
 }
