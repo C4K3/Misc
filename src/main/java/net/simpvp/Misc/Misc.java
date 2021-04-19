@@ -9,10 +9,12 @@ public class Misc extends JavaPlugin {
 
 	@Override
 	public void onEnable(){
+		instance = this;
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 
-		instance = this;
+		PluginLoadFailsafe.schedule_check();
+
 		new ConsoleDeathLog(this);
 		new LogCmd(this);
 		new BlockLog(this);
