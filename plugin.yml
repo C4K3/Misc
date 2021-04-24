@@ -21,10 +21,13 @@ commands:
   tpw:
     description: Teleports command sender to spawn of target world
   dw:
-    description: Runs /lb destroyed block diamond_ore since 1d sum players world world
+    description: Runs /lb destroyed block diamond_ore since 8d sum players world world
     Usage: Error. Please report at http://simpvp.net/forum
   dp:
-    description: Runs /lb destroyed block diamond_ore since 1d sum players world pvp
+    description: Runs /lb destroyed block diamond_ore since 8d sum players world pvp
+    Usage: Error. Please report at http://simpvp.net/forum
+  dn:
+    description: Runs /lb destroyed block ancient_debris since 8d sum players world world_nether
     Usage: Error. Please report at http://simpvp.net/forum
   x:
     description: Runs /lb destroyed block 54 since 1d player args[0] coords
