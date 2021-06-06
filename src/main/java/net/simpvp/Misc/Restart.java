@@ -95,7 +95,7 @@ public class Restart implements CommandExecutor {
 			} else if (requester != null && player != null &&
 					requester.equals(player.getUniqueId())) {
 				sender.sendMessage(ChatColor.RED + "You cannot cancel a restart you requested.");
-			} else if (cancel.contains(player.getName())) {
+			} else if (cancel.contains(player.getUniqueId())) {
 				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
 			} else {
 				cancelled = true;
