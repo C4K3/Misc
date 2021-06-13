@@ -22,7 +22,7 @@ public class Restart implements CommandExecutor {
 	private static long last_request = System.currentTimeMillis();
 
 	// This is a list of players who can't use /cancelrestart
-	List<UUID> cancel = Misc.instance.getConfig().getList("disableCancelRestart");
+	List<?> cancel = Misc.instance.getConfig().getList("disableCancelRestart");
 	
 	public boolean onCommand(CommandSender sender,
 			Command cmd,
@@ -124,4 +124,3 @@ public class Restart implements CommandExecutor {
 	}
 
 }
-
