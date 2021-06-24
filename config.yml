@@ -8,3 +8,4 @@ blockLogWorlds: []
 projectileOwnerMaxDistance: 300
 disableElderGuardians: []
 disableCancelRestart: []
+announcement: ""
