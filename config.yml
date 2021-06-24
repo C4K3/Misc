@@ -1,11 +1,11 @@
 NoNewPlayers: -1
-logNonPlayerCmds: true
+announcement: ""
+blockLogWorlds: []
+disableCancelRestart: []
+disableElderGuardians: []
 disableSelectors: true
 disabledCmds: []
+logNonPlayerCmds: true
 nonplayerCmds: []
 oponlyCmds: []
-blockLogWorlds: []
 projectileOwnerMaxDistance: 300
-disableElderGuardians: []
-disableCancelRestart: []
-announcement: ""
