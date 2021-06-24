@@ -26,6 +26,9 @@ public class Misc extends JavaPlugin {
 		if (this.getConfig().getBoolean("disableSelectors")) {
 			getServer().getPluginManager().registerEvents(new DisableSelectors(), this);
 		}
+		if (this.getConfig().getBoolean("simpvpHostnameChecker")) {
+			getServer().getPluginManager().registerEvents(new HostnameChecker(), this);
+		}
 		getServer().getPluginManager().registerEvents(new BedTrap(), this);
 		getServer().getPluginManager().registerEvents(new EntityResurrect(), this);
 		getServer().getPluginManager().registerEvents(new AdminNameChange(), this);
