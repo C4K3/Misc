@@ -28,6 +28,16 @@ import org.kitteh.vanish.event.VanishStatusChangeEvent;
  */
 public class AgeCommand implements Listener, CommandExecutor {
 
+	public AgeCommand(Misc plugin) {
+		plugin.getCommand("age").setExecutor(this);
+
+		if (plugin.getServer().getPluginManager().isPluginEnabled("VanishNoPacket")) {
+			plugin.getServer().getPluginManager().registerEvents(this, plugin);
+		} else {
+			plugin.getLogger().warning("Did not find VanishNoPacket, not enabling VanishNoPacket integration");
+		}
+	}
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = null;
 		if (sender instanceof Player)
@@ -56,7 +66,6 @@ public class AgeCommand implements Listener, CommandExecutor {
 
 		if (target == null) {
 			get_uuid(args[0], uuid);
-
 		} else {
 			send_result(uuid, target.getUniqueId(), target.getName());
 		}
