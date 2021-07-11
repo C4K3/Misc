@@ -10,3 +10,4 @@ nonplayerCmds: []
 oponlyCmds: []
 projectileOwnerMaxDistance: 300
 simpvpHostnameChecker: false
+infoCommands: {}
