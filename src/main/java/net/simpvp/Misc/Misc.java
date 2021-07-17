@@ -66,6 +66,7 @@ public class Misc extends JavaPlugin {
 		getCommand("relativecoords").setExecutor(rc_instance);
 		getServer().getPluginManager().registerEvents(new PotionEffectListener(), this);
 		new InfoCommands(this);
+		new MOTD(this);
 
 		if (getServer().getPluginManager().isPluginEnabled("ProtocolLib")) {
 			Thunder.add_protocol_listeners();
