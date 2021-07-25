@@ -47,6 +47,11 @@ public class Restart implements CommandExecutor {
 				sender.sendMessage("Only players can use this command");
 				return true;
 			}
+			
+			if (cancel.contains(player.getUniqueId())) {
+				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
+				return true;
+			}
 
 			/* 5 minute waiting period */
 			if (System.currentTimeMillis() <
