@@ -41,13 +41,18 @@ public class Restart implements CommandExecutor {
 				return true;
 			}
 		}
+		
+			if (cancel.contains(player.getUniqueId())) {
+				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
+				return true;
+			}
 
 		if (cmd.getName().equals("requestrestart")) {
 			if (player == null) {
 				sender.sendMessage("Only players can use this command");
 				return true;
 			}
-
+			
 			/* 5 minute waiting period */
 			if (System.currentTimeMillis() <
 					(5 * 60 * 1000) + last_request) {
@@ -95,8 +100,6 @@ public class Restart implements CommandExecutor {
 			} else if (requester != null && player != null &&
 					requester.equals(player.getUniqueId())) {
 				sender.sendMessage(ChatColor.RED + "You cannot cancel a restart you requested.");
-			} else if (cancel.contains(player.getUniqueId())) {
-				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
 			} else {
 				cancelled = true;
 				String msg = "[Announcement] " + sender.getName() + " has cancelled the requested server restart. Tip: Ask in chat if anybody minds a restart before initiating one.";
