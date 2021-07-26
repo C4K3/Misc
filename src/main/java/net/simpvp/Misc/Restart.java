@@ -41,6 +41,11 @@ public class Restart implements CommandExecutor {
 				return true;
 			}
 		}
+		
+			if (cancel.contains(player.getUniqueId())) {
+				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
+				return true;
+			}
 
 		if (cmd.getName().equals("requestrestart")) {
 			if (player == null) {
@@ -48,11 +53,6 @@ public class Restart implements CommandExecutor {
 				return true;
 			}
 			
-			if (cancel.contains(player.getUniqueId())) {
-				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
-				return true;
-			}
-
 			/* 5 minute waiting period */
 			if (System.currentTimeMillis() <
 					(5 * 60 * 1000) + last_request) {
