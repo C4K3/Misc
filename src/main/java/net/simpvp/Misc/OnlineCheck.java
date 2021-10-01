@@ -3,13 +3,16 @@ package net.simpvp.Misc;
 import java.util.HashSet;
 import java.util.UUID;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class OnlineCheck implements CommandExecutor {
 	private static HashSet<UUID> waiting_for = new HashSet<UUID>();
@@ -52,10 +55,17 @@ public class OnlineCheck implements CommandExecutor {
 			return;
 		}
 
-		String msg = ChatColor.AQUA + "[Announcement] Please verify that you're online by typing " + ChatColor.GOLD + "/on";
-		Misc.instance.getLogger().info(msg);
+		TextComponent msg = new TextComponent("[Announcement] Please verify that you're online by typing ");
+		msg.setColor(ChatColor.AQUA);
+		ClickEvent click = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/on");
+		msg.setClickEvent(click);
+		TextComponent msg2 = new TextComponent("/on");
+		msg2.setColor(ChatColor.GOLD);
+		msg.addExtra(msg2);
+
+		Misc.instance.getLogger().info(msg.toPlainText());
 		for (Player p : Misc.instance.getServer().getOnlinePlayers()) {
-			p.sendMessage(msg);
+			p.spigot().sendMessage(msg);
 			if ((player != null) && (player.getUniqueId() == p.getUniqueId())) {
 				continue;
 			}
