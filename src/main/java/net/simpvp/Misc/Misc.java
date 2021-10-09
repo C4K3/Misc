@@ -31,6 +31,7 @@ public class Misc extends JavaPlugin {
 		}
 		getServer().getPluginManager().registerEvents(new BedTrap(), this);
 		getServer().getPluginManager().registerEvents(new EntityResurrect(), this);
+		new InventoryLog(this);
 		getServer().getPluginManager().registerEvents(new AdminNameChange(), this);
 		getServer().getPluginManager().registerEvents(new TameableTracking(), this);
 		getServer().getPluginManager().registerEvents(new DamageSource(this.getConfig().getInt("projectileOwnerMaxDistance")), this);
