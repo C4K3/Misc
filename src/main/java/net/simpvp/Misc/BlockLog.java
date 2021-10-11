@@ -36,7 +36,7 @@ public class BlockLog implements Listener {
 			return;
 		}
 
-		String msg = String.format("%s placed a %s block at (%d %d %d %s)",
+		String msg = String.format("%s placed a %s block at '%d %d %d %s'",
 				event.getPlayer().getName(),
 				b.getType(),
 				b.getX(),
@@ -54,7 +54,7 @@ public class BlockLog implements Listener {
 			return;
 		}
 
-		String msg = String.format("%s broke a %s block at (%d %d %d %s)",
+		String msg = String.format("%s broke a %s block at '%d %d %d %s'",
 				event.getPlayer().getName(),
 				b.getType(),
 				b.getX(),

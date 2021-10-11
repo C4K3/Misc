@@ -36,11 +36,13 @@ public class LogCmd {
 		public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 			Location loc = event.getPlayer().getLocation();
 
-			String msg = "At " + loc.getWorld().getName()
-				+ " " + loc.getBlockX()
-				+ " " + loc.getBlockY()
-				+ " " + + loc.getBlockZ()
-				+ " " + event.getPlayer().getName() + " entered " + event.getMessage();
+			String msg = String.format("At '%d %d %d %s' %s entered %s",
+					loc.getBlockX(),
+					loc.getBlockY(),
+					loc.getBlockZ(),
+					loc.getWorld().getName(),
+					event.getPlayer().getName(),
+					event.getMessage());
 
 			if (event.isCancelled()) {
 				msg = "(Cancelled) " + msg;

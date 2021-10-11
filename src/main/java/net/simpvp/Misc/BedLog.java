@@ -36,12 +36,7 @@ public class BedLog implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
 	public void onPlayerBedEnter(PlayerBedEnterEvent event) {
 		Block block = event.getBed();
-		String msg = event.getPlayer().getName() + " tried to enter a bed at "
-			+ block.getX()
-			+ " " + block.getY()
-			+ " " + block.getZ()
-			+ " " + block.getWorld().getName()
-			+ " (" + event.getBedEnterResult() + ")";
+		String msg = String.format("%s tried to enter a bed at '%d %d %d %s' (%s)", event.getPlayer().getName(), block.getX(), block.getY(), block.getZ(), block.getWorld().getName(), event.getBedEnterResult());
 		if (event.isCancelled()) {
 			msg += " (cancelled)";
 		}

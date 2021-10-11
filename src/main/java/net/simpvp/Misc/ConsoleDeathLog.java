@@ -20,12 +20,13 @@ public class ConsoleDeathLog implements Listener {
 	public void onPlayerDeath(PlayerDeathEvent event){
 		Location loc = event.getEntity().getLocation();
 
-		String death_msg = event.getDeathMessage() + " at "
-				+ loc.getWorld().getName()
-				+ " " + loc.getBlockX()
-				+ " " + loc.getBlockY()
-				+ " " + loc.getBlockZ()
-				+ " (" + event.getEntity().getName() + " died)";
+		String death_msg = String.format("%s at '%d %d %d %s' (%s died)",
+				event.getDeathMessage(),
+				loc.getBlockX(),
+				loc.getBlockY(),
+				loc.getBlockZ(),
+				loc.getWorld().getName(),
+				event.getEntity().getName());
 		/* Log player level and inventory contents just in case.
 		 * The output log format should be consistent with the
 		 * /eventrestore command format */
