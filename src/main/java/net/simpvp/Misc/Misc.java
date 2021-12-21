@@ -66,6 +66,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(rc_instance, this);
 		getCommand("relativecoords").setExecutor(rc_instance);
 		getServer().getPluginManager().registerEvents(new PotionEffectListener(), this);
+		getServer().getPluginManager().registerEvents(new ServerListMessage(), this);
 		new InfoCommands(this);
 		new MOTD(this);
 
