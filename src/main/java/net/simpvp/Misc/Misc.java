@@ -13,6 +13,8 @@ public class Misc extends JavaPlugin {
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
 
+		ServerListMessage.initEvents();
+		
 		PluginLoadFailsafe.schedule_check();
 
 		new ConsoleDeathLog(this);
