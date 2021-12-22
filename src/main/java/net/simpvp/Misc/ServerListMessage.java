@@ -1,5 +1,8 @@
 package net.simpvp.Misc;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,26 +13,43 @@ import org.bukkit.event.server.ServerListPingEvent;
 import net.md_5.bungee.api.ChatColor;
 import net.simpvp.Events.Event;
 
+
 public class ServerListMessage implements Listener {
 	
 	List<?> listOfMOTDS = Misc.instance.getConfig().getList("serverListMessage");
 	String motd = "Welcome to simpvp";
-	
+	static Class<?> eventsClass;
+	static Field field;
+	static Event main;
+	static Method method;
+	String eventName = null;
 	
 	@EventHandler
-	public void serverListPingEvent(ServerListPingEvent event) {
-
-		
-		if (Event.getIsActive() && Event.getEventName() != null) {
-			event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + Event.getEventName());
+	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		eventName = (String) method.invoke(main);
+		if (eventName != null) {
+			event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
 			return;
 		}
-		
 		if (!listOfMOTDS.isEmpty()) {
-			// Get a random motd from the config
 			motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
 			event.setMotd(motd);
 		}
 	}
+	
+	/**
+	 * Use reflection to get access to the event plugin. Thanks kutekats!
+	 */
+	public static void initEvents() {
+		try {
+		  eventsClass = Class.forName("net.simpvp.Events.Event");
+		  field = eventsClass.getField("event");
+		  main = (Event) field.get(null);
+		  method = eventsClass.getMethod("getEventName");
+		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchMethodException e) {
+			Misc.instance.getLogger().info("Error");
+		}
+	}
+	
 }
 
