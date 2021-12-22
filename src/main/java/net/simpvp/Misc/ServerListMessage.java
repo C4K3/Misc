@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 import net.md_5.bungee.api.ChatColor;
-import net.simpvp.Events.Event;
 
 
 public class ServerListMessage implements Listener {
@@ -20,13 +19,12 @@ public class ServerListMessage implements Listener {
 	String motd = "Welcome to simpvp";
 	static Class<?> eventsClass;
 	static Field field;
-	static Event main;
 	static Method method;
 	String eventName = null;
 	
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		eventName = (String) method.invoke(main);
+		eventName = (String) method.invoke(field.get(null));
 		if (eventName != null) {
 			event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
 			return;
@@ -44,9 +42,8 @@ public class ServerListMessage implements Listener {
 		try {
 		  eventsClass = Class.forName("net.simpvp.Events.Event");
 		  field = eventsClass.getField("event");
-		  main = (Event) field.get(null);
 		  method = eventsClass.getMethod("getEventName");
-		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | NoSuchMethodException e) {
+		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {
 			Misc.instance.getLogger().info("Error");
 		}
 	}
