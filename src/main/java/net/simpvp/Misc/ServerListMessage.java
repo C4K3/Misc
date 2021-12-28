@@ -24,10 +24,14 @@ public class ServerListMessage implements Listener {
 	
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		eventName = (String) method.invoke(field.get(null));
-		if (eventName != null) {
-			event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
-			return;
+		if (field != null) {
+			eventName = (String) method.invoke(field.get(null));
+			if (eventName != null) {
+				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
+				return;
+			}
+		} else {
+			Misc.instance.getLogger().info("Event plugin not found");
 		}
 		if (!listOfMOTDS.isEmpty()) {
 			motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
@@ -44,9 +48,8 @@ public class ServerListMessage implements Listener {
 		  field = eventsClass.getField("event");
 		  method = eventsClass.getMethod("getEventName");
 		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {
-			Misc.instance.getLogger().info("Error");
+			Misc.instance.getLogger().info("Event plugin not found");
 		}
 	}
 	
 }
-
