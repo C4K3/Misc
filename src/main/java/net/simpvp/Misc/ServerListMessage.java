@@ -15,13 +15,13 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ServerListMessage implements Listener {
 	
-	List<?> listOfMOTDS = null;
-	String motd = "Welcome to simpvp";
+	List<?> listOfMOTDS;
 	Method method = null;
-	String eventName = null;
 	
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		String eventName = null;
+		String motd = "Welcome to simpvp";
 		if (method != null) {
 			eventName = (String) method.invoke(null);
 			if (eventName != null) {
