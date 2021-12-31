@@ -17,21 +17,19 @@ public class ServerListMessage implements Listener {
 	
 	List<?> listOfMOTDS;
 	String motd = "Welcome to simpvp";
-	Class<?> eventsClass;
-	Field field;
-	Method method;
+	Method method = null;
 	String eventName = null;
 	
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		if (field != null) {
-			eventName = (String) method.invoke(field.get(null));
+		if (method != null) {
+			eventName = (String) method.invoke(null);
 			if (eventName != null) {
-				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing: " + eventName);
+				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
 				return;
 			}
 		}
-		if (!listOfMOTDS.isEmpty()) {
+		if (!this.listOfMOTDS.isEmpty()) {
 			motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
 			event.setMotd(motd);
 		}
@@ -41,6 +39,8 @@ public class ServerListMessage implements Listener {
 	 * Use reflection to get access to the event plugin. Thanks kutekats!
 	 */
 	public ServerListMessage(Misc plugin) {
+		Class<?> eventsClass = null;
+		Field field= null;
 		listOfMOTDS = plugin.getConfig().getList("serverListMessages");
 		try {
 		  eventsClass = Class.forName("net.simpvp.Events.Event");
