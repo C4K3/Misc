@@ -12,8 +12,6 @@ public class Misc extends JavaPlugin {
 		instance = this;
 		this.getConfig().options().copyDefaults(true);
 		this.saveConfig();
-
-		ServerListMessage.initEvents();
 		
 		PluginLoadFailsafe.schedule_check();
 
@@ -68,7 +66,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(rc_instance, this);
 		getCommand("relativecoords").setExecutor(rc_instance);
 		getServer().getPluginManager().registerEvents(new PotionEffectListener(), this);
-		getServer().getPluginManager().registerEvents(new ServerListMessage(), this);
+		getServer().getPluginManager().registerEvents(new ServerListMessage(this), this);
 		new InfoCommands(this);
 		new MOTD(this);
 
