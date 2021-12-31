@@ -27,7 +27,7 @@ public class ServerListMessage implements Listener {
 		if (field != null) {
 			eventName = (String) method.invoke(field.get(null));
 			if (eventName != null) {
-				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
+				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing: " + eventName);
 				return;
 			}
 		}
