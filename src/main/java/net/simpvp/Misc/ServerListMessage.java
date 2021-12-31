@@ -15,7 +15,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ServerListMessage implements Listener {
 	
-	List<?> listOfMOTDS;
+	List<?> listOfMOTDS = null;
 	String motd = "Welcome to simpvp";
 	Method method = null;
 	String eventName = null;
