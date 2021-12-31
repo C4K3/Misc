@@ -12,4 +12,4 @@ projectileOwnerMaxDistance: 300
 simpvpHostnameChecker: false
 infoCommands: []
 motd: ""
-serverListMessage: []
+serverListMessages: []
