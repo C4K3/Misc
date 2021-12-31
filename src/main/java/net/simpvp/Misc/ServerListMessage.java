@@ -1,6 +1,5 @@
 package net.simpvp.Misc;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -27,7 +26,7 @@ public class ServerListMessage implements Listener {
 				return;
 			}
 		}
-		if (!listOfMOTDS.isEmpty() && listOfMOTDS != null) {
+		if (listOfMOTDS != null && !listOfMOTDS.isEmpty()) {
 			String motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
 			event.setMotd(motd);
 		}
@@ -38,13 +37,11 @@ public class ServerListMessage implements Listener {
 	 */
 	public ServerListMessage(Misc plugin) {
 		Class<?> eventsClass = null;
-		Field field= null;
 		listOfMOTDS = plugin.getConfig().getList("serverListMessages");
 		try {
 		  eventsClass = Class.forName("net.simpvp.Events.Event");
-		  field = eventsClass.getField("event");
 		  method = eventsClass.getMethod("getEventName");
-		} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {
+		} catch (ClassNotFoundException | SecurityException | IllegalArgumentException | NoSuchMethodException e) {
 			Misc.instance.getLogger().info("Event plugin not found");
 		}
 	}
