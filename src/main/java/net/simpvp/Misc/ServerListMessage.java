@@ -15,11 +15,11 @@ import net.md_5.bungee.api.ChatColor;
 
 public class ServerListMessage implements Listener {
 	
-	List<?> listOfMOTDS = Misc.instance.getConfig().getList("serverListMessages");
+	List<?> listOfMOTDS;
 	String motd = "Welcome to simpvp";
-	static Class<?> eventsClass;
-	static Field field;
-	static Method method;
+	Class<?> eventsClass;
+	Field field;
+	Method method;
 	String eventName = null;
 	
 	@EventHandler
@@ -30,8 +30,6 @@ public class ServerListMessage implements Listener {
 				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
 				return;
 			}
-		} else {
-			Misc.instance.getLogger().info("Event plugin not found");
 		}
 		if (!listOfMOTDS.isEmpty()) {
 			motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
@@ -42,7 +40,8 @@ public class ServerListMessage implements Listener {
 	/**
 	 * Use reflection to get access to the event plugin. Thanks kutekats!
 	 */
-	public static void initEvents() {
+	public ServerListMessage(Misc plugin) {
+		listOfMOTDS = plugin.getConfig().getList("serverListMessages");
 		try {
 		  eventsClass = Class.forName("net.simpvp.Events.Event");
 		  field = eventsClass.getField("event");
@@ -53,3 +52,4 @@ public class ServerListMessage implements Listener {
 	}
 	
 }
+
