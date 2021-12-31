@@ -20,17 +20,15 @@ public class ServerListMessage implements Listener {
 	
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		String eventName = null;
-		String motd = "Welcome to simpvp";
 		if (method != null) {
-			eventName = (String) method.invoke(null);
+			String eventName = (String) method.invoke(null);
 			if (eventName != null) {
 				event.setMotd(ChatColor.LIGHT_PURPLE + "Currently playing:" + eventName);
 				return;
 			}
 		}
 		if (!this.listOfMOTDS.isEmpty()) {
-			motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
+			String motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
 			event.setMotd(motd);
 		}
 	}
