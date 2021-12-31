@@ -27,7 +27,7 @@ public class ServerListMessage implements Listener {
 				return;
 			}
 		}
-		if (!this.listOfMOTDS.isEmpty()) {
+		if (!listOfMOTDS.isEmpty() && listOfMOTDS != null) {
 			String motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
 			event.setMotd(motd);
 		}
