@@ -23,6 +23,8 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		+ "We're sorry, the server is currently being swarmed by alts, and therefore new players are temporarily restricted from joining the server.\n\n"
 		+ "Please try again later.";
 
+	private long last_sent_message = -1;
+
 	public NoNewPlayers() {
 		hours_required = Misc.instance.getConfig().getInt("NoNewPlayers");
 		Misc.instance.getLogger().info("NoNewPlayers set to " + hours_required);
@@ -65,6 +67,19 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 			event.disallow(PlayerLoginEvent.Result.KICK_OTHER, kick_msg);
 			String m = String.format("NoNewPlayers blocking %s. %d < %d.", player.getName(), hours, hours_required);
 			Misc.instance.getLogger().info(m);
+
+			long now = System.currentTimeMillis() / 1000L;
+			if (last_sent_message + 60 < now) {
+				last_sent_message = now;
+
+				String msg = String.format("%s[NoNewPlayers] %s is trying to connect but has only %d hours", ChatColor.RED, player.getName(), hours);
+				for (Player p : Misc.instance.getServer().getOnlinePlayers()) {
+					if (!p.isOp()) {
+						continue;
+					}
+					p.sendMessage(msg);
+				}
+			}
 		}
 	}
 
