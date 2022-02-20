@@ -88,13 +88,28 @@ public DisableCmd() {
 		String cmd = split[0].trim().toLowerCase();
 		Cmd c = cmds.get(cmd);
 
+		boolean allowCommand = true;
+		if (cmd.equals("kill") || cmd.equals("tp")) {
+			for (String args: split) {
+				if (args.startsWith("@") && !(args.contains("distance=..") || args.contains("distance=0.."))) {
+					allowCommand = false;
+					break;
+				}
+			}
+		}
+
+		if (!allowCommand) {
+			Misc.instance.getLogger().info("Blocking command without a distance limit: " + cmd);
+			event.setCancelled(true);
+		}
+
 		if (c == Cmd.DISABLED) {
 			event.getSender().sendMessage("You do not have permission to use this command.");
-			Misc.instance.getLogger().info("Blocked commanad '" + cmd + "' found in disabledCmds");
+			Misc.instance.getLogger().info("Blocked command '" + cmd + "' found in disabledCmds");
 			event.setCancelled(true);
 		} else if (cmd.contains(":")) {
 			event.getSender().sendMessage("You do not have permission to use this command.");
-			Misc.instance.getLogger().info("Blocked commanad '" + cmd + "' that contained :");
+			Misc.instance.getLogger().info("Blocked command '" + cmd + "' that contained :");
 			event.setCancelled(true);
 		}
 	}
