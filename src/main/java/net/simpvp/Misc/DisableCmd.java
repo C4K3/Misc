@@ -89,9 +89,9 @@ public DisableCmd() {
 		Cmd c = cmds.get(cmd);
 
 		boolean allowCommand = true;
-		if (cmd.equals("kill") || cmd.equals("tp")) {
+		if (cmd.equals("kill") || cmd.equals("tp") || cmd.equals("execute")) {
 			for (String args: split) {
-				if (args.startsWith("@") && !(args.contains("distance=..") || args.contains("distance=0.."))) {
+				if (args.startsWith("@") && !(args.contains("distance="))) {
 					allowCommand = false;
 					break;
 				}
@@ -99,6 +99,7 @@ public DisableCmd() {
 		}
 
 		if (!allowCommand) {
+			event.getSender().sendMessage("Blocking command without a distance limit: " + cmd);
 			Misc.instance.getLogger().info("Blocking command without a distance limit: " + cmd);
 			event.setCancelled(true);
 		}
