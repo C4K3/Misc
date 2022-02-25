@@ -100,7 +100,6 @@ public DisableCmd() {
 
 		if (!allowCommand) {
 			event.getSender().sendMessage("Blocking command without a distance limit: " + cmd);
-			Misc.instance.getLogger().info("Blocking command without a distance limit: " + cmd);
 			event.setCancelled(true);
 		}
 
