@@ -147,8 +147,8 @@ public class AgeCommand implements Listener, CommandExecutor {
 						played_minutes, played_hours, played_days, played_years, avg_hours);
 
 				Player on_player = Misc.instance.getServer().getPlayer(target_uuid);
-				/* Only show time last played for offline players */
-				if (on_player == null) {
+				/* Only show time last played for offline players or vanished OPs */
+				if (on_player == null || !player.canSee(on_player)) {
 					long last_played_seconds = (System.currentTimeMillis() - off_player.getLastPlayed()) / 1000L;
 					if (last_played_seconds < 0) {
 						throw new ArithmeticException();
