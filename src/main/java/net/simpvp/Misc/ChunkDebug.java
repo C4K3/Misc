@@ -1,18 +1,24 @@
 package net.simpvp.Misc;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.World;
-import org.bukkit.Chunk;
 
 public class ChunkDebug implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = null;
 		if (sender instanceof Player) {
 			player = (Player) sender;
+
+			if (!player.isOp()) {
+				player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+				return true;
+			}
 		}
 
 		Chunk chunk;
