@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 
@@ -90,14 +91,14 @@ public class EntityCounts implements CommandExecutor, TabCompleter {
 	/**
 	 * Find number of entities near a player potentially matching some filter
 	 * @param player Player to check
-	 * @param matching Predicate to filter entities, can be set to null to return everything
+	 * @param matching Predicate to filter entities, can be set to null to return everything excluding hanging entities
+	 *                 (item frames, paintings, variants)
 	 * @return Number of matched entities
 	 */
 	private static int getEntityCount(Player player, Predicate<Entity> matching) {
 		Stream<Chunk> chunks = getChunks(player).stream();
-		return (matching == null) ?
-				chunks.mapToInt(c -> c.getEntities().length).sum() :
-				chunks.mapToInt(c -> (int) (Arrays.stream(c.getEntities()).filter(matching).count())).sum();
+		final Predicate<Entity> finalMatching = matching == null ? e -> !(e instanceof Hanging) : matching;
+		return chunks.mapToInt(c -> (int) (Arrays.stream(c.getEntities()).filter(finalMatching).count())).sum();
 	}
 
 	/**
