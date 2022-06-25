@@ -61,8 +61,8 @@ public class ChunkDebug implements CommandExecutor {
 		int blockx = chunk.getBlock(0, 0, 0).getX();
 		int blockz = chunk.getBlock(0, 0, 0).getZ();
 
-		int regionx = blockx / 512;
-		int regionz = blockz / 512;
+		int regionx = blockx >> 9;
+		int regionz = blockz >> 9;
 
 		String msg = "";
 		msg += String.format("Chunk X: %d\n", chunk.getX());
