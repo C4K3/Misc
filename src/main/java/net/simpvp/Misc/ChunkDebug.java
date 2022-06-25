@@ -22,6 +22,7 @@ public class ChunkDebug implements CommandExecutor {
 		}
 
 		Chunk chunk;
+		boolean is_generated = true;
 		if (args.length >= 2) {
 			int x;
 			int z;
@@ -50,6 +51,7 @@ public class ChunkDebug implements CommandExecutor {
 				world = player.getLocation().getWorld();
 			}
 
+			is_generated = world.isChunkGenerated(x, z);
 			chunk = world.getChunkAt(x, z);
 		} else if (player == null) {
 			sender.sendMessage("Non-players must provide coordinates");
@@ -65,6 +67,7 @@ public class ChunkDebug implements CommandExecutor {
 		int regionz = blockz >> 9;
 
 		String msg = "";
+		msg += String.format("Generated: %s\n", is_generated);
 		msg += String.format("Chunk X: %d\n", chunk.getX());
 		msg += String.format("Chunk Z: %d\n", chunk.getZ());
 		msg += String.format("Block X: %d -> %d\n", blockx, chunk.getBlock(15, 0, 15).getX());
