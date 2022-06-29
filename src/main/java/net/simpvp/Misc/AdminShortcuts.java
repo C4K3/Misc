@@ -28,9 +28,9 @@ public class AdminShortcuts implements CommandExecutor {
 		String cmd = null;
 
 		if (scmd.equalsIgnoreCase("dw")) {
-			cmd = "lb lookup destroyed block diamond_ore since 8d sum players world \"world\"";
+			cmd = "lb lookup destroyed block deepslate_diamond_ore block diamond_ore since 8d sum players world \"world\"";
 		} else if (scmd.equalsIgnoreCase("dp")) {
-			cmd = "lb lookup destroyed block diamond_ore since 8d sum players world \"pvp\"";
+			cmd = "lb lookup destroyed block deepslate_diamond_ore block diamond_ore since 8d sum players world \"pvp\"";
 		} else if (scmd.equalsIgnoreCase("dn")) {
 			cmd = "lb lookup destroyed block ancient_debris since 8d sum players world \"world_nether\"";
 		} else if (scmd.equalsIgnoreCase("x")) {
@@ -41,7 +41,6 @@ public class AdminShortcuts implements CommandExecutor {
 
 			UUID uuid = player.getUniqueId();
 
-			String block;
 			String target;
 			if (args.length == 0) {
 				target = LAST_X.get(uuid);
@@ -57,12 +56,11 @@ public class AdminShortcuts implements CommandExecutor {
 			LAST_X.put(uuid, target);
 
 			if (player.getWorld().getEnvironment() == Environment.NETHER) {
-				block = "ancient_debris";
+				cmd = String.format("lb lookup destroyed block ancient_debris player %s time 0 coords", target);
 			} else {
-				block = "diamond_ore";
+				cmd = String.format("lb lookup destroyed block deepslate_diamond_ore block diamond_ore player %s time 0 coords", target);
 			}
 
-			cmd = String.format("lb lookup destroyed block %s player %s time 0 coords", block, target);
 		} else {
 			return false;
 		}
