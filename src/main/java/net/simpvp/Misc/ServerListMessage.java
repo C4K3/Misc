@@ -28,7 +28,7 @@ public class ServerListMessage implements Listener {
 		}
 		if (listOfMOTDS != null && !listOfMOTDS.isEmpty()) {
 			String motd = (String) listOfMOTDS.get(ThreadLocalRandom.current().nextInt(listOfMOTDS.size()));
-			event.setMotd(motd);
+			event.setMotd(ChatColor.translateAlternateColorCodes('&', motd));
 		}
 	}
 	
