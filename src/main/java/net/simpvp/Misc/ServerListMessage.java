@@ -13,10 +13,10 @@ import net.md_5.bungee.api.ChatColor;
 
 
 public class ServerListMessage implements Listener {
-	
+
 	List<?> listOfMOTDS;
 	Method method = null;
-	
+
 	@EventHandler
 	public void serverListPingEvent(ServerListPingEvent event) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		if (method != null) {
@@ -31,7 +31,7 @@ public class ServerListMessage implements Listener {
 			event.setMotd(ChatColor.translateAlternateColorCodes('&', motd));
 		}
 	}
-	
+
 	/**
 	 * Use reflection to get access to the event plugin. Thanks kutekats!
 	 */
@@ -45,6 +45,6 @@ public class ServerListMessage implements Listener {
 			Misc.instance.getLogger().info("Event plugin not found");
 		}
 	}
-	
+
 }
 
