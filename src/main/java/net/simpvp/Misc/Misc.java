@@ -68,6 +68,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PotionEffectListener(), this);
 		getServer().getPluginManager().registerEvents(new ServerListMessage(this), this);
 		getCommand("chunkdebug").setExecutor(new ChunkDebug());
+		new NetherRoof(this);
 		try {
 			new InfoCommands(this);
 		} catch (Exception e) {
