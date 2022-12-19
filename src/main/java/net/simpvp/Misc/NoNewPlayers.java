@@ -115,6 +115,14 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		String m = "/nonewplayers hours required set to " + hours_required;
 		sender.sendMessage(m);
 		Misc.instance.getLogger().info(m);
+		String msg = String.format("[%s]: Set nonewplayers to %d", sender.getName(), hours_required);
+		Misc.instance.getLogger().info(msg);
+		for (Player p : Misc.instance.getServer().getOnlinePlayers()) {
+			if (!p.isOp()) {
+				continue;
+			}
+			p.sendMessage(ChatColor.GRAY + msg);
+		}
 
 		return true;
 	}
