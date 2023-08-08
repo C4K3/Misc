@@ -109,7 +109,10 @@ public class AgeCommand implements Listener, CommandExecutor {
 	}
 
 	private void send_result(UUID uuid, UUID target_uuid, String target_name) {
-		Player player = Misc.instance.getServer().getPlayer(uuid);
+		Player player = null;
+		if (uuid != null) {
+			player = Misc.instance.getServer().getPlayer(uuid);
+		}
 
 		String msg;
 		if (target_uuid == null) {
