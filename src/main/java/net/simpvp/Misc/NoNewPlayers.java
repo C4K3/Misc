@@ -101,6 +101,8 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 			return true;
 		}
 
+		int previous_hours_required = hours_required;
+
 		try {
 			hours_required = Integer.parseInt(args[0]);
 		} catch (Exception e) {
@@ -115,6 +117,14 @@ public class NoNewPlayers implements Listener,CommandExecutor {
 		String m = "/nonewplayers hours required set to " + hours_required;
 		sender.sendMessage(m);
 		Misc.instance.getLogger().info(m);
+		String msg = String.format("[%s]: Changed nonewplayers from %d to %d", sender.getName(), previous_hours_required, hours_required);
+		Misc.instance.getLogger().info(msg);
+		for (Player p : Misc.instance.getServer().getOnlinePlayers()) {
+			if (!p.isOp()) {
+				continue;
+			}
+			p.sendMessage(ChatColor.GRAY + msg);
+		}
 
 		return true;
 	}

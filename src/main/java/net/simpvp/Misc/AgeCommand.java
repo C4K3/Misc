@@ -8,9 +8,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
+import com.google.gson.JsonParser;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -82,15 +81,10 @@ public class AgeCommand implements Listener, CommandExecutor {
 					URLConnection conn = url.openConnection();
 					conn.connect();
 					BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-					String resp = reader.readLine();
-					if (resp == null)
-						resp = "";
 
-					Pattern p = Pattern.compile("\"id\":\"(\\S+?)\"");
-					Matcher m = p.matcher(resp);
-					m.find();
-					String uuid_str = m.group(1);
-					uuid_str = uuid_str.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
+					String uuid_str  = new JsonParser().parse(reader).getAsJsonObject()
+							.get("id").getAsString()
+							.replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
 
 					final UUID uuid = UUID.fromString(uuid_str);
 					new BukkitRunnable() {
@@ -115,7 +109,10 @@ public class AgeCommand implements Listener, CommandExecutor {
 	}
 
 	private void send_result(UUID uuid, UUID target_uuid, String target_name) {
-		Player player = Misc.instance.getServer().getPlayer(uuid);
+		Player player = null;
+		if (uuid != null) {
+			player = Misc.instance.getServer().getPlayer(uuid);
+		}
 
 		String msg;
 		if (target_uuid == null) {
@@ -224,4 +221,3 @@ public class AgeCommand implements Listener, CommandExecutor {
 				off_player.getStatistic(Statistic.PLAY_ONE_MINUTE));
 	}
 }
-
