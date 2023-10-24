@@ -60,3 +60,5 @@ commands:
     description: Show the server motd
   chunkdebug:
     description: Show debug information about a chunk
+  ping:
+    description: Show the player's ping
