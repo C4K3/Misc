@@ -36,7 +36,7 @@ public class Restart implements CommandExecutor {
 			int played_ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			int played_hours = played_ticks / (20 * 60 * 60);
 
-			if (played_hours < 500) {
+			if (played_hours <= 500) {
 				player.sendMessage(ChatColor.RED + "You need to have played for at least 500 hours on this server to use this command.");
 				return true;
 			}
