@@ -69,6 +69,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ServerListMessage(this), this);
 		getCommand("chunkdebug").setExecutor(new ChunkDebug());
 		getCommand("ping").setExecutor(new Ping());
+    new Pronouns();
 		try {
 			new InfoCommands(this);
 		} catch (Exception e) {
