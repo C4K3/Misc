@@ -26,8 +26,8 @@
 		</repository>
 
 		<repository>
-			<id>kitteh-repo</id>
-			<url>https://repo.kitteh.org/content/groups/public/</url>
+			<id>jitpack.io</id>
+      <url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 
@@ -35,20 +35,21 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.20.1-R0.1-SNAPSHOT</version>
+			<version>1.20.4-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>com.comphenix.protocol</groupId>
 			<artifactId>ProtocolLib</artifactId>
-			<version>4.6.0</version>
+			<version>5.1.0</version>
+      <scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.kitteh</groupId>
+			<groupId>com.github.mbax</groupId>
 			<artifactId>VanishNoPacket</artifactId>
-			<version>3.19.1</version>
+			<version>3.22</version>
 		</dependency>
 
 		<dependency>
