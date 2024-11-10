@@ -25,10 +25,10 @@
 			<url>https://repo.dmulloy2.net/nexus/repository/public/</url>
 		</repository>
 
-		<repository>
-			<id>kitteh-repo</id>
-			<url>https://repo.kitteh.org/content/groups/public/</url>
-		</repository>
+			<repository>
+				<id>jitpack.io</id>
+				<url>https://jitpack.io</url>
+			</repository>
 	</repositories>
 
 	<dependencies>
@@ -46,9 +46,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.kitteh</groupId>
+			<groupId>com.github.mbax</groupId>
 			<artifactId>VanishNoPacket</artifactId>
-			<version>3.19.1</version>
+			<version>3.22</version>
 		</dependency>
 
 		<dependency>
