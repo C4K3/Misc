@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class Restart implements CommandExecutor {
-	/* Let's player use the /requestrestart and /cancelrestart commands */
+	/* Lets player use the /requestrestart and /cancelrestart commands */
 
 	private static JavaPlugin plugin = Misc.instance;
 
@@ -21,7 +21,7 @@ public class Restart implements CommandExecutor {
 	private static UUID requester = null;
 	private static long last_request = System.currentTimeMillis();
 
-	// This is a list of players who can't use /cancelrestart
+	// This is a list of players who can't use /cancelrestart and /requestrestart
 	List<?> cancel = Misc.instance.getConfig().getStringList("disableCancelRestart").stream().map(UUID::fromString).collect(java.util.stream.Collectors.toList());
 	
 	public boolean onCommand(CommandSender sender,
@@ -41,18 +41,26 @@ public class Restart implements CommandExecutor {
 				return true;
 			}
 		}
-		
-			if (cancel.contains(player.getUniqueId())) {
-				sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
-				return true;
-			}
+
+		if (cancel.contains(player.getUniqueId())) {
+			sender.sendMessage(ChatColor.RED + "You can no longer use this command.");
+			return true;
+		}
 
 		if (cmd.getName().equals("requestrestart")) {
 			if (player == null) {
 				sender.sendMessage("Only players can use this command");
 				return true;
 			}
-			
+
+   			/* This TPS limit reduces players misusing the command for non-performance purposes.
+   			 * High server uptime can still be easily managed by admins or scheduled restarts. */
+			double[] tps = plugin.getServer().getTPS();
+			if (tps[0] > 17.0 && tps[1] > 17.0) {
+				player.sendMessage(ChatColor.RED + "A restart does not appear to be necessary. TPS must remain below 17 for an extended period.");
+				return true;
+			}
+
 			/* 5 minute waiting period */
 			if (System.currentTimeMillis() <
 					(5 * 60 * 1000) + last_request) {
