@@ -47,26 +47,40 @@ public class AgeCommand implements Listener, CommandExecutor {
 			return true;
 		}
 
-		Player target;
+		UUID target_uuid = null;
+		String target_name = null;
 		if (args.length > 0) {
+			target_name = args[0];
 			@SuppressWarnings("deprecation") /* Only used for online players */
-			Player tmp = Misc.instance.getServer().getPlayer(args[0]);
-			target = tmp;
+			Player target = Misc.instance.getServer().getPlayer(target_name);
+			if (target != null) {
+				target_uuid = target.getUniqueId();
+			}
 		} else {
-			target = player;
+			target_uuid = player.getUniqueId();
+			target_name = player.getName();
 		}
 
-		final UUID uuid;
+		final UUID sender_uuid;
 		if (player == null) {
-			uuid = null;
+			sender_uuid = null;
 		} else {
-			uuid = player.getUniqueId();
+			sender_uuid = player.getUniqueId();
 		}
 
-		if (target == null) {
-			get_uuid(args[0], uuid);
+		if (target_uuid == null) {
+			// Try parsing the argument as an uuid. If it parses
+			// successfully use that, otherwise continue assuming
+			// it's a player name.
+			try {
+				target_uuid = UUID.fromString(args[0]);
+			} catch (IllegalArgumentException e) {}
+		}
+
+		if (target_uuid == null) {
+			get_uuid(args[0], sender_uuid);
 		} else {
-			send_result(uuid, target.getUniqueId(), target.getName());
+			send_result(sender_uuid, target_uuid, target_name);
 		}
 
 		return true;
@@ -108,10 +122,10 @@ public class AgeCommand implements Listener, CommandExecutor {
 		}.runTaskAsynchronously(Misc.instance);
 	}
 
-	private void send_result(UUID uuid, UUID target_uuid, String target_name) {
+	private void send_result(UUID sender_uuid, UUID target_uuid, String target_name) {
 		Player player = null;
-		if (uuid != null) {
-			player = Misc.instance.getServer().getPlayer(uuid);
+		if (sender_uuid != null) {
+			player = Misc.instance.getServer().getPlayer(sender_uuid);
 		}
 
 		String msg;
