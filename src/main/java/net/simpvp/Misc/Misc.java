@@ -71,6 +71,7 @@ public class Misc extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ServerListMessage(this), this);
 		getCommand("chunkdebug").setExecutor(new ChunkDebug());
 		getCommand("ping").setExecutor(new Ping());
+		getCommand("vote").setExecutor(new Vote(this));
 		try {
 			new InfoCommands(this);
 		} catch (Exception e) {
