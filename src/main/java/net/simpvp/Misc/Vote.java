@@ -43,14 +43,14 @@ public class Vote implements CommandExecutor {
 
         int index = 1;
         for (String url : links) {
-            String buttonLabel = ChatColor.GREEN + "[Vote #" + index + "]";
-            TextComponent button = new TextComponent(TextComponent.fromLegacyText(buttonLabel));
-
-            button.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
-            button.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aClick to open!").create()));
-
-            player.spigot().sendMessage(button);
+            String labelText = "§a[Vote #" + index + "]";
+            sendUrlButton(player, labelText, url);
             index++;
+        }
+
+        String openAllUrl = plugin.getConfig().getString("vote.openall", "");
+        if (openAllUrl != null && !openAllUrl.isEmpty()) {
+            sendUrlButton(player, "§2[Open all sites]", openAllUrl);
         }
 
         String footer = plugin.getConfig().getString("vote.footer", "§6The top monthly voters will be displayed in spawn!");
@@ -58,5 +58,12 @@ public class Vote implements CommandExecutor {
         player.sendMessage(footer);
 
         return true;
+    }
+
+    private void sendUrlButton(Player player, String label, String url) {
+        TextComponent button = new TextComponent(TextComponent.fromLegacyText(label));
+        button.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+        button.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§aClick to open!").create()));
+        player.spigot().sendMessage(button);
     }
 }
