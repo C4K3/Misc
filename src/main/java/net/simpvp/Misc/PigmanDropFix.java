@@ -12,6 +12,7 @@ public class PigmanDropFix implements Listener {
 
 	private static final int ADULT_XP = 5;
 	private static final int BABY_XP = 12;
+	private static final float NUGGET_CHANCE = 0.5f;
 	private static final float INGOT_CHANCE = 0.025f;
 
 	/**
@@ -28,9 +29,18 @@ public class PigmanDropFix implements Listener {
 		if (!pigman.isAngry() || event.getDroppedExp() > 0)
 			return;
 
+		// Rebuild the full loot table to avoid double dropping any items
+		event.getDrops().clear();
+
 		// Experience
 		int droppedExp = pigman.isAdult() ? ADULT_XP : BABY_XP;
 		event.setDroppedExp(droppedExp);
+
+		// Gold nugget
+		if (Math.random() < NUGGET_CHANCE) {
+			ItemStack nugget = new ItemStack(Material.GOLD_NUGGET, 1);
+			event.getDrops().add(nugget);
+		}
 
 		// Gold ingot
 		if (Math.random() < INGOT_CHANCE) {
